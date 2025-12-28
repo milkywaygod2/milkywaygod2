@@ -1,7 +1,7 @@
 <div align= "center">
-    <img src="https://capsule-render.vercel.app/api?type=waving&color=0:d1056b,100:0710c0&height=100&text=Hello,%20world!&animation=twinkling&fontColor=39FF14&fontSize=50" />
-    </div>
-    <div style="text-align: left;">
+    <img src="https://capsule-render.vercel.app/api?type=waving&color=0:d1056b,100:0710c0&height=130&text=Hello,%20world!&animation=twinkling&fontColor=39FF14&fontSize=40" />
+</div>
+<div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
     <div style="margin: ; text-align: left;" "text-align: left;"> <img src="https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=C&logoColor=white">
           <img src="https://img.shields.io/badge/C++-00599C?style=flat-square&logo=C%2B%2B&logoColor=white">
@@ -20,7 +20,6 @@
     <div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🧑‍💻 Contact me </h2> <br> 
     <div style="text-align: left;"> <a href=https://bit.ly/hdjin_studybook> <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white&link=https://bit.ly/hdjin_studybook"> </a>
-          </div>
     </div>
-    <div style="text-align: left;"> 
+</div>
     
