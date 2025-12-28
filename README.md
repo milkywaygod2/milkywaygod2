@@ -21,7 +21,7 @@
 <br/>
 <br/>
 <div style="text-align: left;">
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🧑‍💻 study note </h2> <br> 
+    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🧑‍💻 Study Note </h2> <br> 
     <div style="text-align: left;"> <a href=https://bit.ly/hdjin_studybook> <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white&link=https://bit.ly/hdjin_studybook"> </a>
     </div>
 </div>
