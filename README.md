@@ -1,5 +1,5 @@
 <div align= "center">
-    <img src="https://capsule-render.vercel.app/api?type=waving&color=0:d1056b,100:0710c0&height=200&text=Jogging,%20with%20code&animation=twinkling&fontColor=39FF14&fontSize=65" />
+    <img src="https://capsule-render.vercel.app/api?type=waving&color=0:d1056b,100:0710c0&height=200&text=Jogging,%20with%20code&animation=twinkling&fontColor=39FF14&fontSize=55" />
 </div>
 <div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
@@ -18,6 +18,8 @@
         <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white">
     </div>
 </div>
+<br/>
+<br/>
 <div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🧑‍💻 study note </h2> <br> 
     <div style="text-align: left;"> <a href=https://bit.ly/hdjin_studybook> <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white&link=https://bit.ly/hdjin_studybook"> </a>
