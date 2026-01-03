@@ -18,14 +18,14 @@ badges = [
     # C++ Libraries & Frameworks
     ("boost", "boost-DE5E11", "boost"),
     ("opencv", "opencv-5C3EE8", "opencv"),
-    ("tesseract", "tesseract_ocr-000000", "tesseract"), # Attempting specific, if fails will fall back in browser, script just downloads svg
-    ("mfc", "mfc-00599C", "windows"),
+    ("tesseract", "tesseract-000000", "google"), # User requested Google logo
+    ("mfc", "mfc-00599C", "microsoft"), # User requested MS logo
     ("unreal5", "unreal_engine_5-313131", "unrealengine"),
     
     # Python / Java / Web
     ("python", "python-3776AB", "python"),
     ("flask", "flask-000000", "flask"),
-    ("java", "java-007396", "java"),
+    ("java", "java-007396", "java"), # Standard Java Coffee Cup
     ("spring", "spring-6DB33F", "spring"),
     
     # Mobile / Frontend
@@ -45,8 +45,8 @@ badges = [
     ("notion", "Notion-000000", "Notion"),
     
     # Certificates
-    ("qnet", "정보처리기사-005696", "southkorea"), # Using generic if specific not found, maybe no logo? Let's use a generic 'certificate' look if possible or just text-heavy.
-    ("sqld", "SQLD-F29111", "mysql"), # Using DB icon for SQLD
+    ("qnet", "정보처리기사-005696", "read-the-docs"), # Using ReadTheDocs (Book/Doc) as proxy for KPC/Cert
+    ("sqld", "SQLD-F29111", "oracle"), # Using Oracle as proxy for DataQ/DB Cert
 ]
 
 style = "for-the-badge"
