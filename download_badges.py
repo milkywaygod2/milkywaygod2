@@ -15,6 +15,12 @@ badges = [
     ("cpp14", "c++14-00599C", "c%2B%2B"),
     ("cpp17", "c++17-00599C", "c%2B%2B"),
     ("cpp20", "c++20-00599C", "c%2B%2B"),
+    # C++ Libraries & Frameworks
+    ("boost", "boost-DE5E11", "boost"),
+    ("opencv", "opencv-5C3EE8", "opencv"),
+    ("tesseract", "tesseract_ocr-000000", "tesseract"), # Attempting specific, if fails will fall back in browser, script just downloads svg
+    ("mfc", "mfc-00599C", "windows"),
+    ("unreal5", "unreal_engine_5-313131", "unrealengine"),
     
     # Python / Java / Web
     ("python", "python-3776AB", "python"),
@@ -37,6 +43,10 @@ badges = [
 
     # Note
     ("notion", "Notion-000000", "Notion"),
+    
+    # Certificates
+    ("qnet", "정보처리기사-005696", "southkorea"), # Using generic if specific not found, maybe no logo? Let's use a generic 'certificate' look if possible or just text-heavy.
+    ("sqld", "SQLD-F29111", "mysql"), # Using DB icon for SQLD
 ]
 
 style = "for-the-badge"
