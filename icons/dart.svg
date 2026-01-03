@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="79" height="28" role="img" aria-label="DART"><title>DART</title><g shape-rendering="crispEdges"><rect width="79" height="28" fill="#0175c2"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="100"><image x="9" y="7" width="14" height="14" href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkRhcnQ8L3RpdGxlPjxwYXRoIGQ9Ik00LjEwNSA0LjEwNVM5LjE1OCAxLjU4IDExLjY4NC4zMTZhMy4wNzkgMy4wNzkgMCAwIDEgMS40ODEtLjMxNWMuNzY2LjA0NyAxLjY3Ny43ODggMS42NzcuNzg4TDI0IDkuOTQ4djkuNzg5aC00LjI2M1YyNEg5Ljc4OWwtOS05Qy4zMDMgMTQuNSAwIDEzLjc5NSAwIDEzLjEwNWMwLS4zMTkuMTgtLjgxOC4zMTYtMS4xMDVsMy43ODktNy44OTV6bS42NzkuNjc5djExLjc4N2MuMDAyLjU0My4wMjEgMS4wMjQuNDk4IDEuNTA4TDEwLjIwNCAyM2g4LjUzM3YtNC4yNjNMNC43ODQgNC43ODR6bTEyLjA1NS0uNjc4Yy0uODk5LS44OTYtMS44MDktMS43OC0yLjc0LTIuNjQzLS4zMDItLjI2Ny0uNTY3LS40NjgtMS4wNy0uNDYyLS4zNy4wMTQtLjg3LjE5NS0uODcuMTk1TDYuMzQxIDQuMTA1bDEwLjQ5OC4wMDF6Ii8+PC9zdmc+"/><text transform="scale(.1)" x="495" y="175" textLength="350" fill="#fff" font-weight="bold">DART</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="78" height="28" role="img" aria-label="DART">
+  <title>DART</title>
+  <rect width="78" height="28" fill="#0175C2"/>
+  <g transform="translate(8, 4.0) scale(0.8333333333333334)">
+    <path fill="white" d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 1.481-.315c.766.047 1.677.788 1.677.788L24 9.948v9.789h-4.263V24H9.789l-9-9C.303 14.5 0 13.795 0 13.105c0-.319.18-.818.316-1.105l3.789-7.895zm.679.679v11.787c.002.543.021 1.024.498 1.508L10.204 23h8.533v-4.263L4.784 4.784zm12.055-.678c-.899-.896-1.809-1.78-2.74-2.643-.302-.267-.567-.468-1.07-.462-.37.014-.87.195-.87.195L6.341 4.105l10.498.001z"/>
+  </g>
+  <text x="52.0" y="18.0" 
+        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
+        text-anchor="middle">DART</text>
+</svg>
