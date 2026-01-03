@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="69" height="28" role="img" aria-label="MFC">
+<svg xmlns="http://www.w3.org/2000/svg" width="71" height="28" role="img" aria-label="MFC">
   <title>MFC</title>
-  <rect width="69" height="28" fill="#00599C"/>
-  <g transform="translate(8, 4.0) scale(0.8333333333333334)">
+  <rect width="71" height="28" fill="#00599C"/>
+  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
     <path fill="white" d="M0 0h11.377v11.372H0zM12.623 0H24v11.372H12.623zM0 12.623h11.377V24H0zM12.623 12.623H24V24H12.623z"/>
   </g>
-  <text x="47.5" y="18.0" 
+  <text x="49.5" y="18.0" 
         font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
         text-anchor="middle">MFC</text>
 </svg>

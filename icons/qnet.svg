@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="120" height="28" role="img" aria-label="정보처리기사">
+<svg xmlns="http://www.w3.org/2000/svg" width="122" height="28" role="img" aria-label="정보처리기사">
   <title>정보처리기사</title>
-  <rect width="120" height="28" fill="#005696"/>
-  <g transform="translate(8, 4.0) scale(0.8333333333333334)">
-    <path fill="white" d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/>
+  <rect width="122" height="28" fill="#005696"/>
+  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
+    <path fill="white" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
   </g>
-  <text x="73.0" y="18.0" 
+  <text x="75.0" y="18.0" 
         font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
         text-anchor="middle">정보처리기사</text>
 </svg>

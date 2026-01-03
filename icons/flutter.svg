@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="105" height="28" role="img" aria-label="FLUTTER">
+<svg xmlns="http://www.w3.org/2000/svg" width="107" height="28" role="img" aria-label="FLUTTER">
   <title>FLUTTER</title>
-  <rect width="105" height="28" fill="#02569B"/>
-  <g transform="translate(8, 4.0) scale(0.8333333333333334)">
+  <rect width="107" height="28" fill="#02569B"/>
+  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
     <path fill="white" d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z"/>
   </g>
-  <text x="65.5" y="18.0" 
+  <text x="67.5" y="18.0" 
         font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
         text-anchor="middle">FLUTTER</text>
 </svg>
