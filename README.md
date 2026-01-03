@@ -3,8 +3,7 @@
 </div>
 <div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
-    <div style="margin: ; text-align: left;" "text-align: left;">
-
+    <div style="text-align: left;">
         <img src="./icons/c.svg" alt="C">
         <img src="./icons/cpp11.svg" alt="C++11">
         <img src="./icons/cpp14.svg" alt="C++14">
