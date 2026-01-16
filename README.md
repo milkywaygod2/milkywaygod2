@@ -30,6 +30,7 @@
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/postgresql.svg" alt="PostgreSQL"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/synology.svg" alt="Synology"></a>
 <br/>
+<br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/git.svg" alt="Git"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/github.svg" alt="GitHub"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/gitextensions.svg" alt="Git Extensions"></a>
@@ -50,6 +51,7 @@
 <br/>
 <br/>
 <br/>
+<br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/photoshop.svg" alt="Photoshop"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/illustrator.svg" alt="Illustrator"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/lightroom.svg" alt="Lightroom"></a>
@@ -59,6 +61,7 @@
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/rhino.svg" alt="Rhino"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/blender.svg" alt="Blender"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/keyshot.svg" alt="KeyShot"></a>
+<br/>
 <br/>
 <br/>
 <br/>
