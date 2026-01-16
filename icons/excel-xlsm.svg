@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="82.5" height="40" viewBox="0 0 82.5 40">
-        <rect width="82.5" height="40" rx="4" fill="#2D2D2D"/>
-        <svg x="7" y="7" width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-2.5-3.5L6 16h2.5l1.25-2 1.25 2H13l-2.5-3.5L13 8h-2.5l-1.25 2L8 8H5.5l2.5 3.5L5.5 15h2.5z"/></svg>
-        <text x="58.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">Excel</text>
+        <rect width="82.5" height="40" rx="4" fill="2D2D2D"/>
+        <svg x="0" y="0" width="28" height="28" viewBox="0 0 40 40"><path fill="#fff" transform="scale(1.1) translate(6,6)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-2.5-3.5L6 16h2.5l1.25-2 1.25 2H13l-2.5-3.5L13 8h-2.5l-1.25 2L8 8H5.5l2.5 3.5L5.5 15h2.5z"/></svg>
+        <text x="58.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">Excel</text>
     </svg>

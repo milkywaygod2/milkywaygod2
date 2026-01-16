@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="105.0" height="40" viewBox="0 0 105.0 40">
-        <rect width="105.0" height="40" rx="4" fill="#2D2D2D"/>
-        <svg x="7" y="7" width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M5 5v14h14V5H5zm2 2h10v2H7V7zm0 4h7v2H7v-2zm0 4h10v2H7v-2z"/></svg>
-        <text x="70.0" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">Context7</text>
+        <rect width="105.0" height="40" rx="4" fill="2D2D2D"/>
+        <svg x="0" y="0" width="28" height="28" viewBox="0 0 40 40"><path fill="#fff" transform="scale(1.1) translate(6,6)" d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h8v2H8v-2z"/></svg>
+        <text x="70.0" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">Context7</text>
     </svg>

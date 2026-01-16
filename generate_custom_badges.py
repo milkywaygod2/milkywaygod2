@@ -7,14 +7,14 @@ from io import BytesIO
 OUTPUT_DIR = "icons"
 SRC_DIR = "icons_src"
 BADGE_HEIGHT = 28
-ICON_HEIGHT = 22  # Increased for larger logos (Standard was 20)
-FONT_SIZE = 11
+ICON_HEIGHT = 22  # Reverted to larger size
+FONT_SIZE = 11    # Reverted to original size
 PADDING_X = 8
 ICON_TEXT_GAP = 6
 FONT_FAMILY = "Verdana, Geneva, sans-serif"
 
-# Badge Definitions: (Filename, Label, HexColor, SimpleIconsSlug)
-# Note: Text color will be white.
+# Badge Definitions: (Filename, Label, HexColor, SimpleIconsSlug, ForcedURL)
+# Note: Background is #2D2D2D to support full-color icons.
 badges = [
     # C / C++ Group
     ("c", "C", "2D2D2D", "c", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"),
@@ -24,16 +24,16 @@ badges = [
     ("cpp20", "C++20", "2D2D2D", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
     ("boost", "Boost", "2D2D2D", "boost", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/boost/boost-original.svg"),
     ("opencv", "OpenCV", "2D2D2D", "opencv", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"),
-    ("tesseract", "Tesseract", "2D2D2D", "tesseract", None), # Custom/Fallback
-    ("paddle-ocr", "PaddleOCR", "2D2D2D", "paddle-ocr", None), # Custom/Fallback
-    ("mfc", "MFC", "2D2D2D", "microsoft", None), # Fallback to MS squares or find MFC logo?
+    ("tesseract", "Tesseract", "2D2D2D", "tesseract", None), # Need custom color logo
+    ("paddle-ocr", "PaddleOCR", "2D2D2D", "paddlepaddle", None), 
+    ("mfc", "MFC", "2D2D2D", "microsoft", None), 
     ("unreal5", "Unreal Engine 5", "2D2D2D", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
 
     # Python / Web
     ("python", "Python", "2D2D2D", "python", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"),
     ("flask", "Flask", "2D2D2D", "flask", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"),
-    ("ollama", "Ollama", "2D2D2D", "ollama", "https://ollama.com/public/ollama.png"), # Try official PNG
-    ("deepseek-ocr", "DeepSeek", "2D2D2D", "deepseek-ocr", None), # Custom/Fallback (Need to find)
+    ("ollama", "Ollama", "2D2D2D", "ollama", "https://ollama.com/public/ollama.png"), 
+    ("deepseek-ocr", "DeepSeek", "2D2D2D", "deepseek-ocr", None),
 
     # Java
     ("java", "Java", "2D2D2D", "java", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"),
@@ -47,21 +47,21 @@ badges = [
     # DB / NAS
     ("mysql", "MySQL", "2D2D2D", "mysql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"),
     ("postgresql", "PostgreSQL", "2D2D2D", "postgresql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"),
-    ("synology", "Synology", "2D2D2D", "synology", None), # Custom
+    ("synology", "Synology", "2D2D2D", "synology", None),
 
     # Tools
     ("git", "Git", "2D2D2D", "git", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"),
     ("github", "GitHub", "2D2D2D", "github", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"),
-    ("gitextensions", "GitExt", "2D2D2D", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), # Tricky, try png
-    ("winmerge", "WinMerge", "2D2D2D", "winmerge", None), # Custom
-    ("windbg", "WinDbg", "2D2D2D", "windbg", None), # Custom
+    ("gitextensions", "GitExt", "2D2D2D", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), 
+    ("winmerge", "WinMerge", "2D2D2D", "winmerge", None), 
+    ("windbg", "WinDbg", "2D2D2D", "windbg", None), 
     ("figma", "Figma", "2D2D2D", "figma", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"),
-    ("drawio", "Draw.io", "2D2D2D", "drawdotio", None), # Custom
+    ("drawio", "Draw.io", "2D2D2D", "drawdotio", None), 
 
     # IDEs
     ("visualstudio", "Visual Studio", "2D2D2D", "visualstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"),
     ("vscode", "VS Code", "2D2D2D", "visualstudiocode", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"),
-    ("rider", "Rider", "2D2D2D", "rider", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetbrains/jetbrains-original.svg"), # JetBrains logo as fallback or Rider if exists?
+    ("rider", "Rider", "2D2D2D", "rider", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetbrains/jetbrains-original.svg"), 
     ("androidstudio", "Android Studio", "2D2D2D", "androidstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"),
 
     # Internal / Custom Agentic
@@ -73,16 +73,16 @@ badges = [
     # Design / 3D
     ("photoshop", "Photoshop", "2D2D2D", "adobephotoshop", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg"),
     ("illustrator", "Illustrator", "2D2D2D", "adobeillustrator", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg"),
-    ("lightroom", "Lightroom", "2D2D2D", "adobelightroom", None), # Not in devicon?
+    ("lightroom", "Lightroom", "2D2D2D", "adobelightroom", None), 
     ("premiere", "Premiere", "2D2D2D", "adobepremierepro", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg"),
     ("aftereffects", "After Effects", "2D2D2D", "adobeaftereffects", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg"),
-    ("c4d", "Cinema 4D", "2D2D2D", "c4d", None),
-    ("rhino", "Rhino", "2D2D2D", "rhino", None),
+    ("c4d", "Cinema 4D", "2D2D2D", "cinema4d", None),
+    ("rhino", "Rhino", "2D2D2D", "rhinoceros", None),
     ("blender", "Blender", "2D2D2D", "blender", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg"),
     ("keyshot", "KeyShot", "2D2D2D", "keyshot", None),
 
     # Other
-    ("visualbasic", "VB.NET", "2D2D2D", "visualbasic", None), # maybe dot-net logo?
+    ("visualbasic", "VB.NET", "2D2D2D", "visualbasic", None), 
     ("excel-xlsm", "Excel", "2D2D2D", "microsoftexcel", None),
 
     # Certs (Proxies)
@@ -97,8 +97,8 @@ if not os.path.exists(OUTPUT_DIR):
 # Hardcoded paths for icons that confuse the CDN or need custom paths
 CUSTOM_PATHS = {
     # C++ Extended Groups
-    "paddle-ocr": "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z", # Text Document
-    "microsoft": "M0 0h11.377v11.372H0zM12.623 0H24v11.372H12.623zM0 12.623h11.377V24H0zM12.623 12.623H24V24H12.623z",
+    "paddle-ocr": "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z", # Fallback
+    "microsoft": "M0 0h11.377v11.372H0zM12.623 0H24v11.372H12.623H0zM0 12.623h11.377V24H0zM12.623 12.623H24V24H12.623z",
     
     # Python / Web
     "deepseek-ocr": "M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z", # Search
@@ -109,11 +109,12 @@ CUSTOM_PATHS = {
     "winmerge": "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z", # Branch/Nodes
     "windbg": "M19 8h-2.81a5.985 5.985 0 0 0-1.82-1.96l.93-.93a.996.996 0 1 0-1.41-1.41l-1.47 1.47C11.96 5.06 11.49 5 11 5s-.96.06-1.41.17l-1.48-1.48a.996.996 0 1 0-1.41 1.41l.93.93A5.985 5.985 0 0 0 5.81 8H3v2h2.29c-.11.64-.18 1.31-.18 2s.07 1.36.18 2H3v2h2.81c.71 1.12 1.69 2.05 2.87 2.66l-.91.91a.996.996 0 1 0 1.41 1.41l1.46-1.46C10.51 19.94 10.98 20 11.45 20s.95-.06 1.4-.17l1.46 1.46a.996.996 0 1 0 1.41-1.41l-.9-1.9-.9c1.18-.61 2.16-1.54 2.87-2.66H21v-2h-2.29c.11-.64.18-1.31.18-2s-.07-1.36-.18-2H21V8zM11.45 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z", # Bug
     "drawdotio": "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 16.5V12H6v-2h3V7.5l4.5 4.5-4.5 4.5z", # Simple block diagram
+    "gitextensions": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8 8 8z", # Fallback Circle
 
     # Internal / Custom
-    "antigravity": "M7.5 7.5L4 11v4l3.5 3.5L11 15v-4L7.5 7.5zm9 0L13 11v4l3.5 3.5L20 15v-4l-3.5-3.5zM12 2L9 5v4l3 3 3-3V5l-3-3z", # Rocket
-    "context7": "M5 5v14h14V5H5zm2 2h10v2H7V7zm0 4h7v2H7v-2zm0 4h10v2H7v-2z", # Document text
-    "sequentialthinking": "M4 18h16v2H4v-2zm0-5h16v2H4v-2zm0-5h16v2H4V8zm0-5h16v2H4V3z", # Stack/Steps
+    "antigravity": "M12 2.5l-2.5 4h5l-2.5-4zm-4 5l-3 5h5.5l-2.5-5zm8 0l-2.5 5H19l-3-5z", # Rocket
+    "context7": "M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h8v2H8v-2z", # Document
+    "sequentialthinking": "M4 18h16v2H4v-2zm0-4h12v2H4v-2zm0-4h8v2H4v-2zm0-4h4v2H4V6z", # Steps
     "playwright": "M2.8 19.45L21.2 12 2.8 4.55v14.9z", # Play/Flight (Triangle)
 
     # Design / 3D
@@ -213,13 +214,13 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                 # But easiest way to size separate SVG is <image href="data:image/svg+xml;base64,...">
                 # Let's use base64 for SVG too to ensure isolation
                 enc = base64.b64encode(logo_content.encode("utf-8")).decode()
-                logo_svg_element = f'<image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,{enc}"/>'
+                logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="data:image/svg+xml;base64,{enc}"/>'
             else:
                  # Fallback if no svg tag found?
                  pass
         else:
             # It's a base64 encoded image string (e.g. PNG)
-            logo_svg_element = f'<image x="7" y="7" width="26" height="26" href="{logo_content}"/>'
+            logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="{logo_content}"/>'
     
     # Fallback to Monochrome Custom Path or Simple Icons
     if not logo_svg_element:
@@ -227,7 +228,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         if icon_slug in CUSTOM_PATHS:
             path_d = CUSTOM_PATHS[icon_slug]
             # Use white fill for monochrome
-            logo_svg_element = f'<path fill="#fff" d="{path_d}"/>'
+            logo_svg_element = f'<path fill="#fff" transform="scale(1.1) translate(6,6)" d="{path_d}"/>' # Rough adjustment
         else:
             # Try Simple Icons
             try:
@@ -239,7 +240,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     if start_d != -1:
                         end_d = r.text.find('"', start_d + 3)
                         path_d = r.text[start_d+3:end_d]
-                        logo_svg_element = f'<path fill="#fff" d="{path_d}"/>'
+                        logo_svg_element = f'<path fill="#fff" transform="scale(1.1) translate(6,6)" d="{path_d}"/>'
             except:
                 pass
                 
@@ -256,7 +257,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         # Or just place it.
         # To maintain consistency, if it is a path, we wrap:
         if "<path" in logo_svg_element:
-             logo_svg_element = f'<svg x="7" y="7" width="26" height="26" viewBox="0 0 24 24">{logo_svg_element}</svg>'
+             logo_svg_element = f'<svg x="0" y="0" width="{BADGE_HEIGHT}" height="{BADGE_HEIGHT}" viewBox="0 0 40 40">{logo_svg_element}</svg>'
 
 
     # Badge Template (For the Badge) - Dark Grey Background #2D2D2D
@@ -264,9 +265,9 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     badge_height = 40
     
     svg_content = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{total_width}" height="{badge_height}" viewBox="0 0 {total_width} {badge_height}">
-        <rect width="{total_width}" height="{badge_height}" rx="4" fill="#2D2D2D"/>
+        <rect width="{total_width}" height="{badge_height}" rx="4" fill="{color_hex}"/>
         {logo_svg_element}
-        <text x="{35 + label_width/2}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">{label}</text>
+        <text x="{35 + label_width/2}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
     </svg>'''
 
     with open(os.path.join(OUTPUT_DIR, f"{filename}.svg"), "w", encoding="utf-8") as f:

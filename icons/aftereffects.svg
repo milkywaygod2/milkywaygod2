@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="142.5" height="40" viewBox="0 0 142.5 40">
-        <rect width="142.5" height="40" rx="4" fill="#2D2D2D"/>
+        <rect width="142.5" height="40" rx="4" fill="2D2D2D"/>
         <image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMUYwNzQwIiBkPSJNNi41IDYuNWgxMTV2MTE1SDYuNXoiLz48cGF0aCBmaWxsPSIjRDQ5MEM1IiBkPSJNMCAwdjEyOGgxMjhWMEgwem0xMjEuNSAxMjEuNUg2LjVWNi41aDExNXYxMTV6Ii8+PHBhdGggZmlsbD0iI0Q0OTBDNSIgZD0iTTEwMy41IDU5LjJzLS42LTE0LjYtMTYuNS0xNC42Yy0xNiAwLTE3LjMgMjItMTcuMyAyMnY0LjdTNzIuNSA4OS42IDg2IDg5LjZzMTQuOC0yLjYgMTQuOC0yLjZ2LTguMXMtMTkuMyA5LjItMjEuMi0xMGgyNHYtOS43em0tOSAyLjRoLTE1czAtOC4zIDcuNS05LjJjOC4yIDAgNy41IDkuMiA3LjUgOS4yek01MC41IDI5LjlIMzguNHYzLjhsLTE2IDU0LjloOS40bDQuNC0xNi4xSDUzbDQuNSAxNi4xaDEwLjNMNTAuNSAyOS45ek0zOC4yIDYzLjFsNi40LTI0LjVMNTEgNjMuMUgzOC4yeiIvPjwvc3ZnPg=="/>
-        <text x="88.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">After Effects</text>
+        <text x="88.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">After Effects</text>
     </svg>

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="82.5" height="40" viewBox="0 0 82.5 40">
-        <rect width="82.5" height="40" rx="4" fill="#2D2D2D"/>
+        <rect width="82.5" height="40" rx="4" fill="2D2D2D"/>
         <image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMGFjZjgzIiBkPSJNNDUuNSAxMjljMTEuOSAwIDIxLjUtOS42IDIxLjUtMjEuNVY4Nkg0NS41QzMzLjYgODYgMjQgOTUuNiAyNCAxMDcuNVMzMy42IDEyOSA0NS41IDEyOXptMCAwIi8+PHBhdGggZmlsbD0iI2EyNTlmZiIgZD0iTTI0IDY0LjVDMjQgNTIuNiAzMy42IDQzIDQ1LjUgNDNINjd2NDNINDUuNUMzMy42IDg2IDI0IDc2LjQgMjQgNjQuNXptMCAwIi8+PHBhdGggZmlsbD0iI2YyNGUxZSIgZD0iTTI0IDIxLjVDMjQgOS42IDMzLjYgMCA0NS41IDBINjd2NDNINDUuNUMzMy42IDQzIDI0IDMzLjQgMjQgMjEuNXptMCAwIi8+PHBhdGggZmlsbD0iI2ZmNzI2MiIgZD0iTTY3IDBoMjEuNUMxMDAuNCAwIDExMCA5LjYgMTEwIDIxLjVTMTAwLjQgNDMgODguNSA0M0g2N3ptMCAwIi8+PHBhdGggZmlsbD0iIzFhYmNmZSIgZD0iTTExMCA2NC41YzAgMTEuOS05LjYgMjEuNS0yMS41IDIxLjVTNjcgNzYuNCA2NyA2NC41IDc2LjYgNDMgODguNSA0MyAxMTAgNTIuNiAxMTAgNjQuNXptMCAwIi8+PC9zdmc+"/>
-        <text x="58.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">Figma</text>
+        <text x="58.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">Figma</text>
     </svg>

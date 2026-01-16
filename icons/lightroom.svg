@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="112.5" height="40" viewBox="0 0 112.5 40">
-        <rect width="112.5" height="40" rx="4" fill="#2D2D2D"/>
-        <svg x="7" y="7" width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M0 0v24h24V0H0zm6.5 16v-7h2.5v5h3v2h-5.5zm7 0v-5h3v-2h-3v-1h3v-1.5h-3.5c-1.1 0-2 .9-2 2v5.5h2.5z"/></svg>
-        <text x="73.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">Lightroom</text>
+        <rect width="112.5" height="40" rx="4" fill="2D2D2D"/>
+        <svg x="0" y="0" width="28" height="28" viewBox="0 0 40 40"><path fill="#fff" transform="scale(1.1) translate(6,6)" d="M0 0v24h24V0H0zm6.5 16v-7h2.5v5h3v2h-5.5zm7 0v-5h3v-2h-3v-1h3v-1.5h-3.5c-1.1 0-2 .9-2 2v5.5h2.5z"/></svg>
+        <text x="73.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">Lightroom</text>
     </svg>
