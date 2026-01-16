@@ -1,5 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="105.0" height="40" viewBox="0 0 105.0 40">
-        <rect width="105.0" height="40" rx="4" fill="2D2D2D"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="40" viewBox="0 0 108 40">
+        
+    <defs>
+        <radialGradient id="logo-glow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" stop-color="white" stop-opacity="0.9"/>
+            <stop offset="70%" stop-color="white" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#2D2D2D" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+    
+        <rect width="108" height="40" rx="4" fill="4D6BFE"/>
+        <circle cx="20" cy="20" r="14" fill="url(#logo-glow)" />
         <svg x="0" y="0" width="28" height="28" viewBox="0 0 40 40"><path fill="#fff" transform="scale(1.1) translate(6,6)" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        <text x="70.0" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">DeepSeek</text>
+        <text x="64.0" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="11" fill="#fff" font-weight="bold">DeepSeek</text>
     </svg>
