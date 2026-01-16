@@ -196,15 +196,6 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     # Define the SVG structure
     # We add a radial gradient to create a subtle glow behind the logo
     # This ensures dark logos are visible on the dark background
-    svg_defs = """
-    <defs>
-        <radialGradient id="logo-glow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-            <stop offset="0%" stop-color="white" stop-opacity="0.9"/>
-            <stop offset="70%" stop-color="white" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#2D2D2D" stop-opacity="0"/>
-        </radialGradient>
-    </defs>
-    """
     
     # Calculate width based on text length (approximate)
     # Base padding (30 for icon) + text length * char width (~7-8) + padding (10)
@@ -214,12 +205,9 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     # Minimum width to accommodate icon + text
     total_width = int(30 + text_width_approx + 10)
     
-    # Background Rectangle
-    bg_rect = f'<rect width="{total_width}" height="40" rx="4" fill="{color_hex}"/>'
     
-    # Glow Circle Background (Behind Logo)
-    # Centered at 20,20 (since icon is at 7,7 with size 26 -> center roughly 20)
-    glow_circle = '<circle cx="20" cy="20" r="14" fill="url(#logo-glow)" />'
+    # Background Rectangle
+    bg_rect = f'<rect width="{total_width}" height="40" rx="4" fill="#{color_hex}"/>'
 
     logo_content, is_svg = fetch_local_or_url(icon_slug, forced_url)
     logo_svg_element = ""
@@ -304,9 +292,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     # Just need to make sure we don't duplicate headers.
     
     final_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{total_width}" height="40" viewBox="0 0 {total_width} 40">
-        {svg_defs}
         {bg_rect}
-        {glow_circle}
         {logo_svg_element}
         <text x="{total_width - (text_width_approx / 2) - 10}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
     </svg>'''
