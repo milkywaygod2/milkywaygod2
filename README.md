@@ -49,6 +49,7 @@
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/flywright.svg" alt="Flywright"></a>
 <br/>
 <br/>
+<br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/photoshop.svg" alt="Photoshop"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/illustrator.svg" alt="Illustrator"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/lightroom.svg" alt="Lightroom"></a>
@@ -58,6 +59,7 @@
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/rhino.svg" alt="Rhino"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/blender.svg" alt="Blender"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/keyshot.svg" alt="KeyShot"></a>
+<br/>
 <br/>
 <br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/visualbasic.svg" alt="Visual Basic"></a>
