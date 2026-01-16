@@ -20,78 +20,78 @@ FONT_FAMILY = "Verdana, Geneva, sans-serif"
 # Note: Background is #2D2D2D to support full-color icons.
 badges = [
     # C / C++ Group
-    ("c", "C", "A8B9CC", "c", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"),
-    ("cpp11", "C++11", "00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("cpp14", "C++14", "00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("cpp17", "C++17", "00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("cpp20", "C++20", "00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("boost", "Boost", "2779BD", "boost", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/boost/boost-original.svg"),
-    ("opencv", "OpenCV", "5C3EE8", "opencv", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"),
-    ("tesseract", "Tesseract", "00599C", "tesseract", None), # Similar to C++ blue
-    ("paddle-ocr", "PaddleOCR", "000000", "paddlepaddle", None), # Black/Dark
-    ("mfc", "MFC", "00599C", "microsoft", None), 
-    ("unreal5", "Unreal Engine 5", "0E1128", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
+    ("c", "C", "#00599C", "c", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"),
+    ("cpp11", "C++11", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("cpp14", "C++14", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("cpp17", "C++17", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("cpp20", "C++20", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("boost", "Boost", "#00599C", "boost", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/boost/boost-original.svg"),
+    ("opencv", "OpenCV", "#00599C", "opencv", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"),
+    ("tesseract", "Tesseract", "#00599C", "tesseract", None), 
+    ("paddle-ocr", "PaddleOCR", "#00599C", "paddlepaddle", None), 
+    ("mfc", "MFC", "#00599C", "microsoft", None), 
+    ("unreal5", "UnrealEngine5", "#00599C", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
 
     # Python / Web
-    ("python", "Python", "3776AB", "python", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"),
-    ("flask", "Flask", "000000", "flask", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"),
-    ("ollama", "Ollama", "000000", "ollama", "https://ollama.com/public/ollama.png"), 
-    ("deepseek-ocr", "DeepSeek", "4D6BFE", "deepseek-ocr", None), # Blue-ish
+    ("python", "Python", "#00599C", "python", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"),
+    ("flask", "Flask", "#00599C", "flask", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"),
+    ("ollama", "Ollama", "#00599C", "ollama", "https://ollama.com/public/ollama.png"), 
+    ("deepseek-ocr", "DeepSeek", "#00599C", "deepseek-ocr", None), 
 
     # Java
-    ("java", "Java", "007396", "java", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"),
-    ("spring", "Spring", "6DB33F", "spring", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"),
+    ("java", "Java", "#E34F26", "java", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"),
+    ("spring", "Spring", "#6DB33F", "spring", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"),
 
     # Mobile / Front
-    ("dart", "Dart", "0175C2", "dart", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"),
-    ("flutter", "Flutter", "02569B", "flutter", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"),
-    ("html5", "HTML5", "E34F26", "html5", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"),
+    ("dart", "Dart", "#0175C2", "dart", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"),
+    ("flutter", "Flutter", "#02569B", "flutter", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"),
+    ("html5", "HTML5", "#00599C", "html5", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"),
 
     # DB / NAS
-    ("mysql", "MySQL", "4479A1", "mysql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"),
-    ("postgresql", "PostgreSQL", "4169E1", "postgresql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"),
-    ("synology", "Synology", "B3B3B3", "synology", None), # Grey
+    ("mysql", "MySQL", "#4479A1", "mysql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"),
+    ("postgresql", "PostgreSQL", "#4169E1", "postgresql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"),
+    ("synology", "Synology", "#B3B3B3", "synology", None), # Grey
 
     # Tools
-    ("git", "Git", "F05032", "git", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"),
-    ("github", "GitHub", "181717", "github", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"),
-    ("gitextensions", "GitExt", "252525", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), 
-    ("winmerge", "WinMerge", "82937F", "winmerge", None), # Pale Green
-    ("windbg", "WinDbg", "00599C", "windbg", None), # Microsoft Blue
-    ("figma", "Figma", "F24E1E", "figma", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"),
-    ("drawio", "Draw.io", "F08705", "drawdotio", None), # Orange
+    ("git", "Git", "#F05032", "git", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"),
+    ("github", "GitHub", "#181717", "github", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"),
+    ("gitextensions", "GitExtensions", "#252525", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), 
+    ("winmerge", "WinMerge", "#82937F", "winmerge", None), # Pale Green
+    ("windbg", "WinDbg", "#00599C", "windbg", None), # Microsoft Blue
+    ("figma", "Figma", "#F24E1E", "figma", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"),
+    ("drawio", "Draw.io", "#F08705", "drawdotio", None), # Orange
 
     # IDEs
-    ("visualstudio", "Visual Studio", "5C2D91", "visualstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"),
-    ("vscode", "VS Code", "007ACC", "visualstudiocode", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"),
-    ("rider", "Rider", "000000", "rider", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetbrains/jetbrains-original.svg"), # JetBrains Black
-    ("androidstudio", "Android Studio", "3DDC84", "androidstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"),
+    ("visualstudio", "VisualStudio", "#5C2D91", "visualstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"),
+    ("vscode", "Vscode", "#007ACC", "visualstudiocode", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"),
+    ("rider", "Rider", "#000000", "rider", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetbrains/jetbrains-original.svg"), # JetBrains Black
+    ("androidstudio", "AndroidStudio", "#3DDC84", "androidstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"),
 
     # Internal / Custom Agentic
-    ("antigravity", "Antigravity", "4B0082", "antigravity", None), # Indigo
-    ("context7", "Context7", "008080", "context7", None), # Teal
-    ("sequentialthinking", "Sequential", "FF4500", "sequentialthinking", None), # OrangeRed
-    ("flywright", "Flywright", "45BA4B", "playwright", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg"),
+    ("antigravity", "Antigravity", "#4B0082", "antigravity", None), # Indigo
+    ("context7", "Context7", "#008080", "context7", None), # Teal
+    ("sequentialthinking", "SequentialThinking", "#FF4500", "sequentialthinking", None), # OrangeRed
+    ("flywright", "Flywright", "#45BA4B", "playwright", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg"),
 
     # Design / 3D
-    ("photoshop", "Photoshop", "31A8FF", "adobephotoshop", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg"),
-    ("illustrator", "Illustrator", "FF9A00", "adobeillustrator", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg"),
-    ("lightroom", "Lightroom", "31A8FF", "adobelightroom", None), 
-    ("premiere", "Premiere", "9999FF", "adobepremierepro", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg"),
-    ("aftereffects", "After Effects", "9999FF", "adobeaftereffects", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg"),
-    ("c4d", "Cinema 4D", "004886", "cinema4d", None),
-    ("rhino", "Rhino", "800000", "rhinoceros", None),
-    ("blender", "Blender", "E87D0D", "blender", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg"),
-    ("keyshot", "KeyShot", "000000", "keyshot", None),
+    ("photoshop", "Photoshop", "#31A8FF", "adobephotoshop", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg"),
+    ("illustrator", "Illustrator", "#FF9A00", "adobeillustrator", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg"),
+    ("lightroom", "Lightroom", "#31A8FF", "adobelightroom", None), 
+    ("premiere", "Premiere", "#9999FF", "adobepremierepro", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg"),
+    ("aftereffects", "AfterEffects", "#9999FF", "adobeaftereffects", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg"),
+    ("c4d", "Cinema4D", "#004886", "cinema4d", None),
+    ("rhino", "Rhino", "#800000", "rhinoceros", None),
+    ("blender", "Blender", "#E87D0D", "blender", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg"),
+    ("keyshot", "KeyShot", "#000000", "keyshot", None),
 
     # Other
-    ("visualbasic", "VB.NET", "5C2D91", "visualbasic", None), 
-    ("excel-xlsm", "Excel", "217346", "microsoftexcel", None),
+    ("visualbasic", "VisualBasic", "#5C2D91", "visualbasic", None), 
+    ("excel-xlsm", "ExcelXlsm", "#217346", "microsoftexcel", None),
 
     # Certs (Proxies)
-    ("sqld", "SQLD", "FFA500", "sqld", None),
-    ("qnet", "Q-Net", "000080", "qnet", None),
-    ("notion", "Notion", "000000", "notion", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"),
+    ("sqld", "SQLD", "#FFA500", "sqld", None),
+    ("qnet", "Q-Net", "#000080", "qnet", None),
+    ("notion", "Notion", "#000000", "notion", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"),
 ]
 
 if not os.path.exists(OUTPUT_DIR):
@@ -194,6 +194,8 @@ def fetch_local_or_url(slug, forced_url=None):
 
 
 def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
+    # Sanitize color_hex to ensure it works with or without '#'
+    color_hex = color_hex.lstrip('#')
     print(f"Generating {filename}...")
     
     # Define the SVG structure
@@ -285,35 +287,24 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         if "<path" in logo_svg_element:
              logo_svg_element = f'<svg x="0" y="0" width="{BADGE_HEIGHT}" height="{BADGE_HEIGHT}" viewBox="0 0 40 40">{logo_svg_element}</svg>'
 
-
-    # Badge Template (For the Badge) - Dark Grey Background #2D2D2D
-    # Using 'for-the-badge' style look
-    badge_height = 40
-    
-    # Assembly
-    # We strip the XML/DOCTYPE from the logo_svg_element if it's an inline SVG (already handled above)
-    # Just need to make sure we don't duplicate headers.
-    
-    final_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{total_width}" height="40" viewBox="0 0 {total_width} 40">
+    final_svg = f'''
+    <svg xmlns="http://www.w3.org/2000/svg" 
+    width="{total_width}" 
+    height="{BADGE_HEIGHT}" 
+    viewBox="0 0 {total_width} {BADGE_HEIGHT}">
         {bg_rect}
         {logo_svg_element}
         <text x="{total_width - (text_width_approx / 2) - 10}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
     </svg>'''
     
-    # Save SVG (as master source)
-    with open(os.path.join(OUTPUT_DIR, f"{filename}.svg"), "w", encoding="utf-8") as f:
-        f.write(final_svg)
-
-    # Convert to PNG (Rasterization)
     try:
         png_path = os.path.join(OUTPUT_DIR, f"{filename}.png")
         drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
-        renderPM.drawToFile(drawing, png_path, fmt="PNG")
+        renderPM.drawToFile(drawing, png_path, fmt="PNG", bg=None)
     except Exception as e:
         print(f"  [Error] Failed to convert {filename} to PNG: {e}")
 
 if __name__ == "__main__":
-    print(f"Starting Badge Generation for {len(badges)} badges...")
     for badge in badges:
         # Handle optional URL
         if len(badge) == 5:
