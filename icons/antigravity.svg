@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="143" height="28" role="img" aria-label="ANTIGRAVITY">
+  <title>ANTIGRAVITY</title>
+  <rect width="143" height="28" fill="#FF0000"/>
+  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
+    <path fill="white" d="M7.5 7.5L4 11v4l3.5 3.5L11 15v-4L7.5 7.5zm9 0L13 11v4l3.5 3.5L20 15v-4l-3.5-3.5zM12 2L9 5v4l3 3 3-3V5l-3-3z"/>
+  </g>
+  <text x="85.5" y="18.0" 
+        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
+        text-anchor="middle">ANTIGRAVITY</text>
+</svg>

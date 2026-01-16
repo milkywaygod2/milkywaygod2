@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="28" role="img" aria-label="EXCEL XLSM">
+  <title>EXCEL XLSM</title>
+  <rect width="132" height="28" fill="#217346"/>
+  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
+    <path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-2.5-3.5L6 16h2.5l1.25-2 1.25 2H13l-2.5-3.5L13 8h-2.5l-1.25 2L8 8H5.5l2.5 3.5L5.5 15h2.5z"/>
+  </g>
+  <text x="80.0" y="18.0" 
+        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
+        text-anchor="middle">EXCEL XLSM</text>
+</svg>

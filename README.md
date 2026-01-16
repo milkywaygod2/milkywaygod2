@@ -12,11 +12,13 @@
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/boost.svg" alt="Boost"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/opencv.svg" alt="OpenCV"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/tesseract.svg" alt="Tesseract"></a>
-<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/mfc.svg" alt="MFC"></a>
-<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/unreal5.svg" alt="Unreal Engine 5"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/paddle-ocr.svg" alt="PaddleOCR"></a>
 <br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/python.svg" alt="Python"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/flask.svg" alt="Flask"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/ollama.svg" alt="Ollama"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/deepseek-ocr.svg" alt="DeepSeek OCR"></a>
+<br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/java.svg" alt="Java"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/spring.svg" alt="Spring"></a>
 <br/>
@@ -26,9 +28,40 @@
 <br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/mysql.svg" alt="MySQL"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/postgresql.svg" alt="PostgreSQL"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/synology.svg" alt="Synology"></a>
 <br/>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/git.svg" alt="Git"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/github.svg" alt="GitHub"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/gitextensions.svg" alt="Git Extensions"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/winmerge.svg" alt="WinMerge"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/windbg.svg" alt="WinDbg"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/figma.svg" alt="Figma"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/drawio.svg" alt="Draw.io"></a>
+<br/>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/visualstudio.svg" alt="Visual Studio"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/vscode.svg" alt="VS Code"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/rider.svg" alt="Rider"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/androidstudio.svg" alt="Android Studio"></a>
+<br/>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/antigravity.svg" alt="Antigravity"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/context7.svg" alt="Context7"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/sequentialthinking.svg" alt="Sequential Thinking"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/flywright.svg" alt="Flywright"></a>
+<br/>
+<br/>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/photoshop.svg" alt="Photoshop"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/illustrator.svg" alt="Illustrator"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/lightroom.svg" alt="Lightroom"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/premiere.svg" alt="Premiere"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/aftereffects.svg" alt="After Effects"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/c4d.svg" alt="Cinema 4D"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/rhino.svg" alt="Rhino"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/blender.svg" alt="Blender"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/keyshot.svg" alt="KeyShot"></a>
+<br/>
+<br/>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/visualbasic.svg" alt="Visual Basic"></a>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/excel-xlsm.svg" alt="Excel XLSM"></a>
 </div>
 </div>
 <br/>

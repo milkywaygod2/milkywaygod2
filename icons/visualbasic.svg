@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="28" role="img" aria-label="VISUAL BASIC">
+  <title>VISUAL BASIC</title>
+  <rect width="150" height="28" fill="#005476"/>
+  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
+    <path fill="white" d="M2 4v16h20V4H2zm4 12l-2.5-7h2L7 13l1.5-4h2L8 16H6zm10 0h-2l-1-2h-1v2h-2V8h3.5c1.93 0 3.5 1.57 3.5 3.5 0 1.1-.55 2.05-1.39 2.66C15.9 14.54 16 15.02 16 16z"/>
+  </g>
+  <text x="89.0" y="18.0" 
+        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
+        text-anchor="middle">VISUAL BASIC</text>
+</svg>
