@@ -1,10 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="107" height="28" role="img" aria-label="KEYSHOT">
-  <title>KEYSHOT</title>
-  <rect width="107" height="28" fill="#000000"/>
-  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
-    <path fill="white" d="M12.65 10A5.98 5.98 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.98 5.98 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-  </g>
-  <text x="67.5" y="18.0" 
-        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
-        text-anchor="middle">KEYSHOT</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="97.5" height="40" viewBox="0 0 97.5 40">
+        <rect width="97.5" height="40" rx="4" fill="#2D2D2D"/>
+        <svg x="7" y="7" width="26" height="26" viewBox="0 0 24 24"><path fill="#fff" d="M12.65 10A5.98 5.98 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.98 5.98 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+        <text x="66.25" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">KeyShot</text>
+    </svg>

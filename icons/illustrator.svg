@@ -1,10 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="143" height="28" role="img" aria-label="ILLUSTRATOR">
-  <title>ILLUSTRATOR</title>
-  <rect width="143" height="28" fill="#FF9A00"/>
-  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
-    <path fill="white" d="M0 0v24h24V0H0zm9.5 16h-5v-1l2-5h1l2 5v1zm-3-2h3v-.5l-1-2.5h-.5l-1 2.5v.5zm9 2h-2v-7h2v7zm1.5-6h2v-1h-2v1z"/>
-  </g>
-  <text x="85.5" y="18.0" 
-        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
-        text-anchor="middle">ILLUSTRATOR</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="127.5" height="40" viewBox="0 0 127.5 40">
+        <rect width="127.5" height="40" rx="4" fill="#2D2D2D"/>
+        <image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMzAwIiBkPSJNMjIuNyAxLjZoODIuN2MxMi41IDAgMjIuNyAxMC4xIDIyLjcgMjIuN3Y3OS41YzAgMTIuNS0xMC4xIDIyLjctMjIuNyAyMi43SDIyLjdDMTAuMSAxMjYuNCAwIDExNi4zIDAgMTAzLjdWMjQuM0MwIDExLjcgMTAuMSAxLjYgMjIuNyAxLjYiLz48cGF0aCBmaWxsPSIjZmY5YTAwIiBkPSJNNjEuOSA3Ni4zSDQybC00IDEyLjVjLS4xLjUtLjUuOC0xIC43SDI3Yy0uNiAwLS43LS4zLS42LTFsMTcuMi00OS40Yy4yLS41LjMtMS4xLjUtMS44LjItMS4xLjMtMi4zLjMtMy41LS4xLS4zLjItLjUuNC0uNmgxMy44Yy40IDAgLjYuMi43LjRsMTkuNSA1NC45Yy4yLjYgMCAuOS0uNS45SDY3LjFjLS40LjEtLjctLjItLjktLjZ6TTQ1LjEgNjUuNGgxMy41Yy0uMy0xLjEtLjctMi41LTEuMi0zLjgtLjUtMS40LTEtMy0xLjQtNC42LS41LTEuNy0xLTMuMy0xLjUtNC45LS41LTEuNy0xLTMuMi0xLjQtNC43LS40LTEuNS0uOC0yLjktMS4yLTQuMmgtLjFjLS41IDIuMy0xLjEgNC42LTEuOCA2LjktLjggMi42LTEuNiA1LjItMi41IDcuOS0uOCAyLjctMS42IDUuMi0yLjQgNy40bTQ1LjYtMjIuN2MtMS44LjEtMy41LS42LTQuNy0xLjktMS4yLTEuMy0xLjktMy4xLTEuOC00LjktLjEtMS44LjYtMy41IDEuOS00LjcgMS4zLTEuMiAzLTEuOSA0LjctMS45IDIuMSAwIDMuNy42IDQuOSAxLjkgMS4yIDEuMyAxLjggMyAxLjggNC43LjEgMS44LS42IDMuNi0xLjkgNC45LTEuMyAxLjMtMy4xIDItNC45IDEuOW0tNiA0Ni4zVjQ3LjljMC0uNS4yLS43LjctLjdIOTZjLjUgMCAuNy4zLjcuN1Y4OWMwIC42LS4yLjktLjcuOUg4NS41Yy0uNS0uMS0uOC0uNC0uOC0uOSIvPjwvc3ZnPgo="/>
+        <text x="81.25" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">Illustrator</text>
+    </svg>

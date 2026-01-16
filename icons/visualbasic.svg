@@ -1,10 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="150" height="28" role="img" aria-label="VISUAL BASIC">
-  <title>VISUAL BASIC</title>
-  <rect width="150" height="28" fill="#005476"/>
-  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
-    <path fill="white" d="M2 4v16h20V4H2zm4 12l-2.5-7h2L7 13l1.5-4h2L8 16H6zm10 0h-2l-1-2h-1v2h-2V8h3.5c1.93 0 3.5 1.57 3.5 3.5 0 1.1-.55 2.05-1.39 2.66C15.9 14.54 16 15.02 16 16z"/>
-  </g>
-  <text x="89.0" y="18.0" 
-        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
-        text-anchor="middle">VISUAL BASIC</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="90.0" height="40" viewBox="0 0 90.0 40">
+        <rect width="90.0" height="40" rx="4" fill="#2D2D2D"/>
+        <image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBkPSJNMTI4IDYzLjEyMWE2My4xMjEgNjMuMTIxIDAgMDEtNjMuMTIxIDYzLjEyMkE2My4xMjEgNjMuMTIxIDAgMDExLjc1NyA2My4xMjEgNjMuMTIxIDYzLjEyMSAwIDAxNjQuODc5IDAgNjMuMTIxIDYzLjEyMSAwIDAxMTI4IDYzLjEyMXoiIGZpbGw9IiMwMDRlOGMiLz48cGF0aCBkPSJNMjEuMTI3IDE3Ljc1M2E2My4xMjEgNjMuMTIxIDAgMTA4OS4xMiA4OS4xMnoiIG9wYWNpdHk9Ii4xIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTYxLjE3IDM4LjE2OEw0Ny4xMjUgNzcuNjE5YTIxLjY5OCAyMS42OTggMCAwMC0xLjEwNCA0LjQ5OGgtLjEzOGEyMy40MTQgMjMuNDE0IDAgMDAtMS4wMDYtNC4zOThMMzEuMDY4IDM4LjI2OEgyNC41OGwxOC4wMyA0OS43MDloNi40ODhsMTguMzI2LTQ5LjcxLTYuMjU0LS4wOTl6bTEzLjQxNC4xdjQ5LjcwOWgxNC40NGExNy4wNDMgMTcuMDQzIDAgMDAxMS41MzgtMy45NDYgMTMgMTMgMCAwMDQuNTc3LTEwLjMzNiAxMS42NzcgMTEuNjc3IDAgMDAtMy4wMTgtOC4zNDUgMTIuNjQ0IDEyLjY0NCAwIDAwLTguMDQ5LTMuNzg3di0uMTM3YTEyLjM0OCAxMi4zNDggMCAwMDYuMzEzLTQuNDQgMTIuMDkyIDEyLjA5MiAwIDAwMi4zNDctNy4zMzggMTAuMTk4IDEwLjE5OCAwIDAwLTMuNzg3LTguMjI0IDE1LjQ2NSAxNS40NjUgMCAwMC0xMC4yMTgtMy4xNTZINzQuNTg0em0xMi41MjUgNS4xODdjNi4zNTIgMCA5LjUyOCAyLjQxNCA5LjUyOCA3LjI0YTguMDI4IDguMDI4IDAgMDEtMi43NDIgNi41MDggMTEuMzIyIDExLjMyMiAwIDAxLTcuNDc3IDIuMzY3aC01LjkxNlY0My41MTRsNi42MDctLjA1OXpNODAuNTAyIDY0LjhsNi42MDcuMDJjNy45OTYgMCAxMS45OTMgMi45MzEgMTEuOTkzIDguNzk2YTguMzA0IDguMzA0IDAgMDEtMi44MiA2LjY0OSAxMS44MzUgMTEuODM1IDAgMDEtNy44OTEgMi40MjVoLTcuODg5VjY0Ljh6IiBmaWxsPSIjZmZmIi8+PC9zdmc+Cg=="/>
+        <text x="62.5" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">VB.NET</text>
+    </svg>

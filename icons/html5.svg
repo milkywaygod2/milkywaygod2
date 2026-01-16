@@ -1,10 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="87" height="28" role="img" aria-label="HTML5">
-  <title>HTML5</title>
-  <rect width="87" height="28" fill="#E34F26"/>
-  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
-    <path fill="white" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
-  </g>
-  <text x="57.5" y="18.0" 
-        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
-        text-anchor="middle">HTML5</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="82.5" height="40" viewBox="0 0 82.5 40">
+        <rect width="82.5" height="40" rx="4" fill="#2D2D2D"/>
+        <image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjRTQ0RDI2IiBkPSJNMTkuMDM3IDExMy44NzZMOS4wMzIgMS42NjFoMTA5LjkzNmwtMTAuMDE2IDExMi4xOTgtNDUuMDE5IDEyLjQ4eiIvPjxwYXRoIGZpbGw9IiNGMTY1MjkiIGQ9Ik02NCAxMTYuOGwzNi4zNzgtMTAuMDg2IDguNTU5LTk1Ljg3OEg2NHoiLz48cGF0aCBmaWxsPSIjRUJFQkVCIiBkPSJNNjQgNTIuNDU1SDQ1Ljc4OEw0NC41MyAzOC4zNjFINjRWMjQuNTk5SDI5LjQ4OWwuMzMgMy42OTIgMy4zODIgMzcuOTI3SDY0em0wIDM1Ljc0M2wtLjA2MS4wMTctMTUuMzI3LTQuMTQtLjk3OS0xMC45NzVIMzMuODE2bDEuOTI4IDIxLjYwOSAyOC4xOTMgNy44MjYuMDYzLS4wMTd6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTYzLjk1MiA1Mi40NTV2MTMuNzYzaDE2Ljk0N2wtMS41OTcgMTcuODQ5LTE1LjM1IDQuMTQzdjE0LjMxOWwyOC4yMTUtNy44Mi4yMDctMi4zMjUgMy4yMzQtMzYuMjMzLjMzNS0zLjY5NmgtMy43MDh6bTAtMjcuODU2djEzLjc2MmgzMy4yNDRsLjI3Ni0zLjA5Mi42MjgtNi45NzguMzI5LTMuNjkyeiIvPjwvc3ZnPg=="/>
+        <text x="58.75" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">HTML5</text>
+    </svg>

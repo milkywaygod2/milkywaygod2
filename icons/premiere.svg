@@ -1,10 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="116" height="28" role="img" aria-label="PREMIERE">
-  <title>PREMIERE</title>
-  <rect width="116" height="28" fill="#9999FF"/>
-  <g transform="translate(8, 3.0) scale(0.9166666666666666)">
-    <path fill="white" d="M0 0v24h24V0H0zm6 16v-7h3.5c1.1 0 2 .9 2 2v1c0 1.1-.9 2-2 2H8.5v2H6zm2.5-4h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1v2zm7 4v-5h2v-2h-2v-1h2v-1.5h-2.5c-1.1 0-2 .9-2 2v5.5h2.5z"/>
-  </g>
-  <text x="72.0" y="18.0" 
-        font-family="Verdana, Geneva, sans-serif" font-size="11" font-weight="bold" fill="white" 
-        text-anchor="middle">PREMIERE</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="105.0" height="40" viewBox="0 0 105.0 40">
+        <rect width="105.0" height="40" rx="4" fill="#2D2D2D"/>
+        <image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBmaWxsPSIjMkEwNjM0IiBkPSJNMCAwaDEyOHYxMjhIMHoiLz48cGF0aCBmaWxsPSIjRTk3NkI5IiBkPSJNMCAwdjEyOGgxMjhWMEgwem0xMjMgMTIzSDVWNWgxMTh2MTE4eiIvPjxwYXRoIGZpbGw9IiNFOTc2QjkiIGQ9Ik02OSA0Ny4xYy0uMS05LjQtNy44LTE2LjktMTcuMi0xNi44SDMzLjN2NTguNWg5LjZWNjcuNWg4LjNDNjEgNjcuNCA2OSA1OS4zIDY5IDQ5LjR2LTIuM3ptLTkuNiAzYzAgNS00LjEgOS4xLTkuMSA5LjFoLTcuNFYzOC41aDcuNGM1IDAgOS4xIDQuMSA5LjEgOS4xdjIuNXpNNzcuMSA4OC44VjQ4LjlzMTAuMi01LjEgMjAuMi0zLjh2OC4zcy03IDAtMTAuMSAxLjN2MzQuMkg3Ny4xeiIvPjwvc3ZnPg=="/>
+        <text x="70.0" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">Premiere</text>
+    </svg>

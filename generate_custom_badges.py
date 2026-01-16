@@ -1,9 +1,11 @@
 import os
 import requests
-import xml.etree.ElementTree as ET
+import base64
+from io import BytesIO
 
 # Configuration
 OUTPUT_DIR = "icons"
+SRC_DIR = "icons_src"
 BADGE_HEIGHT = 28
 ICON_HEIGHT = 22  # Increased for larger logos (Standard was 20)
 FONT_SIZE = 11
@@ -15,80 +17,78 @@ FONT_FAMILY = "Verdana, Geneva, sans-serif"
 # Note: Text color will be white.
 badges = [
     # C / C++ Group
-    ("c", "C", "A8B9CC", "c"),
-    ("cpp11", "C++11", "00599C", "cplusplus"),
-    ("cpp14", "C++14", "00599C", "cplusplus"),
-    ("cpp17", "C++17", "00599C", "cplusplus"),
-    ("cpp20", "C++20", "00599C", "cplusplus"),
-    
-    # C++ Extended
-    ("boost", "BOOST", "DE5E11", "boost"),
-    ("opencv", "OPENCV", "5C3EE8", "opencv"),
-    ("tesseract", "TESSERACT", "555555", "intel"), 
-    ("paddle-ocr", "PADDLE-OCR", "000000", "paddle-ocr"), # Custom
-    ("mfc", "MFC", "00599C", "microsoft"), 
-    ("unreal5", "UNREAL 5", "313131", "unrealengine"),
+    ("c", "C", "2D2D2D", "c", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"),
+    ("cpp11", "C++11", "2D2D2D", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("cpp14", "C++14", "2D2D2D", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("cpp17", "C++17", "2D2D2D", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("cpp20", "C++20", "2D2D2D", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
+    ("boost", "Boost", "2D2D2D", "boost", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/boost/boost-original.svg"),
+    ("opencv", "OpenCV", "2D2D2D", "opencv", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"),
+    ("tesseract", "Tesseract", "2D2D2D", "tesseract", None), # Custom/Fallback
+    ("paddle-ocr", "PaddleOCR", "2D2D2D", "paddle-ocr", None), # Custom/Fallback
+    ("mfc", "MFC", "2D2D2D", "microsoft", None), # Fallback to MS squares or find MFC logo?
+    ("unreal5", "Unreal Engine 5", "2D2D2D", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
 
     # Python / Web
-    ("python", "PYTHON", "3776AB", "python"),
-    ("flask", "FLASK", "000000", "flask"),
-    ("ollama", "OLLAMA", "000000", "ollama"),
-    ("deepseek-ocr", "DEEPSEEK-OCR", "4D6BFE", "deepseek-ocr"), # Custom
-    ("java", "JAVA", "007396", "coffeescript"), 
-    ("spring", "SPRING", "6DB33F", "spring"),
+    ("python", "Python", "2D2D2D", "python", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"),
+    ("flask", "Flask", "2D2D2D", "flask", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"),
+    ("ollama", "Ollama", "2D2D2D", "ollama", "https://ollama.com/public/ollama.png"), # Try official PNG
+    ("deepseek-ocr", "DeepSeek", "2D2D2D", "deepseek-ocr", None), # Custom/Fallback (Need to find)
 
-    # Mobile / Frontend
-    ("dart", "DART", "0175C2", "dart"),
-    ("flutter", "FLUTTER", "02569B", "flutter"),
-    ("html5", "HTML5", "E34F26", "html5"),
+    # Java
+    ("java", "Java", "2D2D2D", "java", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"),
+    ("spring", "Spring", "2D2D2D", "spring", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"),
 
-    # DB
-    ("mysql", "MYSQL", "4479A1", "mysql"),
-    ("postgresql", "POSTGRESQL", "4169E1", "postgresql"),
-    ("synology", "SYNOLOGY", "B5111B", "synology"),
+    # Mobile / Front
+    ("dart", "Dart", "2D2D2D", "dart", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"),
+    ("flutter", "Flutter", "2D2D2D", "flutter", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"),
+    ("html5", "HTML5", "2D2D2D", "html5", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"),
 
-    # Tools: Git/Github, GitExtension, Winmerge, WinDbg, Figma, Draw.io
-    ("git", "GIT", "F05032", "git"),
-    ("github", "GITHUB", "181717", "github"),
-    ("gitextensions", "GITEXTENSIONS", "2D2D2D", "gitextensions"),
-    ("winmerge", "WINMERGE", "86B404", "winmerge"), # Custom
-    ("windbg", "WINDBG", "0078D7", "windbg"), # Custom
-    ("figma", "FIGMA", "F24E1E", "figma"),
-    ("drawio", "DRAW.IO", "F08705", "drawdotio"),
+    # DB / NAS
+    ("mysql", "MySQL", "2D2D2D", "mysql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"),
+    ("postgresql", "PostgreSQL", "2D2D2D", "postgresql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"),
+    ("synology", "Synology", "2D2D2D", "synology", None), # Custom
 
-    # IDEs: VS, VSCode, Rider, AndroidStudio
-    ("visualstudio", "VISUAL STUDIO", "5C2D91", "visualstudio"),
-    ("vscode", "VS CODE", "007ACC", "visualstudiocode"),
-    ("rider", "RIDER", "000000", "rider"),
-    ("androidstudio", "ANDROID STUDIO", "3DDC84", "androidstudio"),
+    # Tools
+    ("git", "Git", "2D2D2D", "git", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"),
+    ("github", "GitHub", "2D2D2D", "github", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"),
+    ("gitextensions", "GitExt", "2D2D2D", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), # Tricky, try png
+    ("winmerge", "WinMerge", "2D2D2D", "winmerge", None), # Custom
+    ("windbg", "WinDbg", "2D2D2D", "windbg", None), # Custom
+    ("figma", "Figma", "2D2D2D", "figma", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"),
+    ("drawio", "Draw.io", "2D2D2D", "drawdotio", None), # Custom
 
-    # Internal / Custom
-    ("antigravity", "ANTIGRAVITY", "FF0000", "antigravity"), # Rocket
-    ("context7", "CONTEXT7", "005BBB", "context7"), # Custom
-    ("sequentialthinking", "SEQUENTIALTHINKING", "FF9900", "sequentialthinking"), # Brain
-    ("flywright", "FLYWRIGHT", "2EAD33", "playwright"), # Used Playwright slug
+    # IDEs
+    ("visualstudio", "Visual Studio", "2D2D2D", "visualstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"),
+    ("vscode", "VS Code", "2D2D2D", "visualstudiocode", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"),
+    ("rider", "Rider", "2D2D2D", "rider", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetbrains/jetbrains-original.svg"), # JetBrains logo as fallback or Rider if exists?
+    ("androidstudio", "Android Studio", "2D2D2D", "androidstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"),
+
+    # Internal / Custom Agentic
+    ("antigravity", "Antigravity", "2D2D2D", "antigravity", None),
+    ("context7", "Context7", "2D2D2D", "context7", None),
+    ("sequentialthinking", "Sequential", "2D2D2D", "sequentialthinking", None),
+    ("flywright", "Flywright", "2D2D2D", "playwright", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg"),
 
     # Design / 3D
-    ("photoshop", "PHOTOSHOP", "31A8FF", "adobephotoshop"),
-    ("illustrator", "ILLUSTRATOR", "FF9A00", "adobeillustrator"),
-    ("lightroom", "LIGHTROOM", "31A8FF", "adobelightroom"),
-    ("premiere", "PREMIERE", "9999FF", "adobepremierepro"),
-    ("aftereffects", "AFTER EFFECTS", "9999FF", "adobeaftereffects"),
-    ("c4d", "CINEMA 4D", "004899", "cinema4d"),
-    ("rhino", "RHINO", "8C8C8C", "rhinoceros"),
-    ("blender", "BLENDER", "E87D0D", "blender"),
-    ("keyshot", "KEYSHOT", "000000", "keyshot"), # Custom
+    ("photoshop", "Photoshop", "2D2D2D", "adobephotoshop", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg"),
+    ("illustrator", "Illustrator", "2D2D2D", "adobeillustrator", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg"),
+    ("lightroom", "Lightroom", "2D2D2D", "adobelightroom", None), # Not in devicon?
+    ("premiere", "Premiere", "2D2D2D", "adobepremierepro", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg"),
+    ("aftereffects", "After Effects", "2D2D2D", "adobeaftereffects", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg"),
+    ("c4d", "Cinema 4D", "2D2D2D", "c4d", None),
+    ("rhino", "Rhino", "2D2D2D", "rhino", None),
+    ("blender", "Blender", "2D2D2D", "blender", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg"),
+    ("keyshot", "KeyShot", "2D2D2D", "keyshot", None),
 
     # Other
-    ("visualbasic", "VISUAL BASIC", "005476", "visualbasic"), # VB.NET often generic .NET or custom? Checking slug later. Using custom slug if needed, but visualbasic likely distinct or generic. SimpleIcons has visualbasic.
-    ("excel-xlsm", "EXCEL XLSM", "217346", "microsoftexcel"),
+    ("visualbasic", "VB.NET", "2D2D2D", "visualbasic", None), # maybe dot-net logo?
+    ("excel-xlsm", "Excel", "2D2D2D", "microsoftexcel", None),
 
-    # Notes
-    ("notion", "NOTION", "000000", "notion"),
-
-    # Certificates
-    ("qnet", "정보처리기사", "005696", "qnet"), # Custom Path
-    ("sqld", "SQLD", "F29111", "sqld"), # Custom Path
+    # Certs (Proxies)
+    ("sqld", "SQLD", "2D2D2D", "sqld", None),
+    ("qnet", "Q-Net", "2D2D2D", "qnet", None),
+    ("notion", "Notion", "2D2D2D", "notion", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"),
 ]
 
 if not os.path.exists(OUTPUT_DIR):
@@ -135,7 +135,8 @@ CUSTOM_PATHS = {
 
 
 def get_text_width(text):
-    # Rough estimate for Verdana 11 bold-ish
+    # Rough estimate for text width (verdana 11px)
+    return max(len(text) * 7.5 + 10, 20)
     # Uppercase chars are wider ~8-9px, Lower ~6-7px.
     # We'll use a simple multiplier.
     width = 0
@@ -148,78 +149,135 @@ def get_text_width(text):
             width += 7.5
     return int(width)
 
-def generate_badge(filename, label, color_hex, icon_slug):
+def fetch_local_or_url(slug, forced_url=None):
+    # 1. Try local overrides first
+    local_svg = os.path.join(SRC_DIR, f"{slug}.svg")
+    local_png = os.path.join(SRC_DIR, f"{slug}.png")
+    
+    if os.path.exists(local_svg):
+        with open(local_svg, "r", encoding="utf-8") as f:
+            return f.read(), True # content, is_svg
+            
+    if os.path.exists(local_png):
+        with open(local_png, "rb") as f:
+            enc = base64.b64encode(f.read()).decode()
+            return f"data:image/png;base64,{enc}", False # content as href, is_svg=False
+
+    # 2. Try forced URL if provided
+    if forced_url:
+        try:
+            r = requests.get(forced_url)
+            if r.status_code == 200:
+                if forced_url.endswith(".svg"):
+                     return r.text, True
+                else: # Assume PNG/Image
+                     enc = base64.b64encode(r.content).decode()
+                     return f"data:image/png;base64,{enc}", False
+        except Exception as e:
+            print(f"Failed to fetch {forced_url}: {e}")
+
+    # 3. Try Devicon (Standard)
+    # Convention: https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{slug}/{slug}-original.svg
+    devicon_url = f"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{slug}/{slug}-original.svg"
+    try:
+        r = requests.get(devicon_url, timeout=2)
+        if r.status_code == 200:
+            return r.text, True
+    except:
+        pass
+
+    return None, False
+
+
+def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     print(f"Generating {filename}...")
     
-    path_d = ""
-    viewbox_size = 24 # Standard
+    # Text Layout Calculation
+    label_width = get_text_width(label)
+    total_width = label_width + 35 # 30px icon + padding
     
-    # 1. Fetch Icon or Use Custom
-    if icon_slug in CUSTOM_PATHS:
-        path_d = CUSTOM_PATHS[icon_slug]
-        # Custom paths assumed on 24x24 scale
-    else:
-        icon_url = f"https://cdn.simpleicons.org/{icon_slug}/white" 
-        
-        try:
-            r = requests.get(icon_url, headers={'User-Agent': 'Mozilla/5.0'})
-            if r.status_code == 200:
-                # Parse SVG to get path and viewBox
-                # SimpleIcons usually standardizes to 24x24 viewBox
-                icon_svg = ET.fromstring(r.content)
-                path_elem = icon_svg.find(".//{http://www.w3.org/2000/svg}path")
-                if path_elem is None:
-                    # Try without namespace
-                    path_elem = icon_svg.find("path")
-                path_d = path_elem.attrib['d'] if path_elem is not None else ""
+    # Try to get colored logo
+    logo_content, is_svg = fetch_local_or_url(icon_slug, forced_url)
+    
+    logo_svg_element = ""
+    
+    if logo_content:
+        # If it's an SVG, we try to strip the XML/DOCTYPE header and inject it
+        if is_svg:
+            # Simple strip of headers to embed as inner content
+            # This is a bit hacky but works for most clean SVGs
+            start_svg = logo_content.find("<svg")
+            if start_svg != -1:
+                # Extract attributes from the root svg tag to maybe respect viewbox?
+                # For now, let's wrap it in an group or symbol to allow sizing
+                # But easiest way to size separate SVG is <image href="data:image/svg+xml;base64,...">
+                # Let's use base64 for SVG too to ensure isolation
+                enc = base64.b64encode(logo_content.encode("utf-8")).decode()
+                logo_svg_element = f'<image x="7" y="7" width="26" height="26" href="data:image/svg+xml;base64,{enc}"/>'
             else:
-                print(f"  Error fetching icon {icon_slug}: {r.status_code}")
-                return
-            
-        except Exception as e:
-            print(f"  Exception fetching/parsing {icon_slug}: {e}")
-            return
+                 # Fallback if no svg tag found?
+                 pass
+        else:
+            # It's a base64 encoded image string (e.g. PNG)
+            logo_svg_element = f'<image x="7" y="7" width="26" height="26" href="{logo_content}"/>'
+    
+    # Fallback to Monochrome Custom Path or Simple Icons
+    if not logo_svg_element:
+        path_d = ""
+        if icon_slug in CUSTOM_PATHS:
+            path_d = CUSTOM_PATHS[icon_slug]
+            # Use white fill for monochrome
+            logo_svg_element = f'<path fill="#fff" d="{path_d}"/>'
+        else:
+            # Try Simple Icons
+            try:
+                icon_url = f"https://cdn.simpleicons.org/{icon_slug}/white"
+                r = requests.get(icon_url)
+                if r.status_code == 200:
+                    # Extract path d
+                    start_d = r.text.find('d="')
+                    if start_d != -1:
+                        end_d = r.text.find('"', start_d + 3)
+                        path_d = r.text[start_d+3:end_d]
+                        logo_svg_element = f'<path fill="#fff" d="{path_d}"/>'
+            except:
+                pass
+                
+        # Scale adjustment for monochrome paths (viewbox 24->26?)
+        # For simplicity, we keep the original logic for paths if fallback
+        if not logo_svg_element:
+             print(f"  [Warning] No logo found for {filename}")
+             
+        # If using path, we usually wrap it in a transform for size. 
+        # But wait, original code was 24x24 viewbox.
+        # If we successfully created a path element, it expects a parent scaling 
+        # or we assume the path is 24x24.
+        # Let's wrap path-based logos in a standard 24->26 scaling group if needed
+        # Or just place it.
+        # To maintain consistency, if it is a path, we wrap:
+        if "<path" in logo_svg_element:
+             logo_svg_element = f'<svg x="7" y="7" width="26" height="26" viewBox="0 0 24 24">{logo_svg_element}</svg>'
 
-    # 2. Calculate Layout
-    text_w = get_text_width(label)
+
+    # Badge Template (For the Badge) - Dark Grey Background #2D2D2D
+    # Using 'for-the-badge' style look
+    badge_height = 40
     
-    # Scale calculation
-    # Base scale
-    scale_factor = ICON_HEIGHT / float(viewbox_size)
-    
-    # Custom Scaling for specific logos
-    if filename == 'mysql':
-        scale_factor *= 1.4  # Boost MySQL by 40%
-    if filename == 'tesseract':
-        scale_factor *= 1.1 # Boost Intel logo slightly
-        
-    # Total Width
-    full_width = PADDING_X + ICON_HEIGHT + ICON_TEXT_GAP + text_w + PADDING_X
-    
-    # Center Y adjustment mainly matters if base size differs, but with transform scale it's distinct.
-    # We maintain top-left corner at (PADDING_X, (BADGE - ICON)/2) and just scale.
-    # However, if we scale UP MySQL, it might overflow. We should adjust translate.
-    
-    trans_x = PADDING_X
-    trans_y = (BADGE_HEIGHT - (viewbox_size * scale_factor))/2
-    
-    # 3. Build SVG
-    # We use a simple template
-    svg_content = f"""<svg xmlns="http://www.w3.org/2000/svg" width="{full_width}" height="{BADGE_HEIGHT}" role="img" aria-label="{label}">
-  <title>{label}</title>
-  <rect width="{full_width}" height="{BADGE_HEIGHT}" fill="#{color_hex}"/>
-  <g transform="translate({trans_x}, {trans_y}) scale({scale_factor})">
-    <path fill="white" d="{path_d}"/>
-  </g>
-  <text x="{PADDING_X + ICON_HEIGHT + ICON_TEXT_GAP + text_w/2}" y="{BADGE_HEIGHT/2 + 4}" 
-        font-family="{FONT_FAMILY}" font-size="{FONT_SIZE}" font-weight="bold" fill="white" 
-        text-anchor="middle">{label}</text>
-</svg>"""
+    svg_content = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{total_width}" height="{badge_height}" viewBox="0 0 {total_width} {badge_height}">
+        <rect width="{total_width}" height="{badge_height}" rx="4" fill="#2D2D2D"/>
+        {logo_svg_element}
+        <text x="{35 + label_width/2}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="16" fill="#fff" font-weight="bold">{label}</text>
+    </svg>'''
 
     with open(os.path.join(OUTPUT_DIR, f"{filename}.svg"), "w", encoding="utf-8") as f:
         f.write(svg_content)
 
-print(f"Starting Badge Generation for {len(badges)} badges...")
-for b in badges:
-    generate_badge(*b)
-print("Done.")
+if __name__ == "__main__":
+    print(f"Starting Badge Generation for {len(badges)} badges...")
+    for badge in badges:
+        # Handle optional URL
+        if len(badge) == 5:
+            generate_badge(badge[0], badge[1], badge[2], badge[3], badge[4])
+        else:
+            generate_badge(badge[0], badge[1], badge[2], badge[3])
+    print("Done.")
