@@ -207,16 +207,29 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         if is_svg:
             # Simple strip of headers to embed as inner content
             # This is a bit hacky but works for most clean SVGs
+            # Find the start of the <svg> tag
             start_svg = logo_content.find("<svg")
             if start_svg != -1:
-                # Extract attributes from the root svg tag to maybe respect viewbox?
-                # For now, let's wrap it in an group or symbol to allow sizing
-                # But easiest way to size separate SVG is <image href="data:image/svg+xml;base64,...">
-                # Let's use base64 for SVG too to ensure isolation
-                enc = base64.b64encode(logo_content.encode("utf-8")).decode()
-                logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="data:image/svg+xml;base64,{enc}"/>'
+                # Find the end of the opening <svg ...> tag to extract content
+                end_opening_tag = logo_content.find(">", start_svg)
+                end_svg = logo_content.rfind("</svg>")
+                
+                if end_opening_tag != -1 and end_svg != -1:
+                    inner_content = logo_content[end_opening_tag+1:end_svg]
+                    # We wrap it in a nested svg to handle viewbox/scaling
+                    # But wait, original viewboxes vary. 
+                    # Ideally we copy the viewbox from the original SVG string.
+                    import re
+                    viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
+                    viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else 'viewBox="0 0 128 128"' # Default/Guess
+                    
+                    logo_svg_element = f'<svg x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" {viewbox_attr}>{inner_content}</svg>'
+                else:
+                    # Fallback to base64 if parsing fails
+                    enc = base64.b64encode(logo_content.encode("utf-8")).decode()
+                    logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="data:image/svg+xml;base64,{enc}"/>'
             else:
-                 # Fallback if no svg tag found?
+                 # Fallback if no svg tag found
                  pass
         else:
             # It's a base64 encoded image string (e.g. PNG)
