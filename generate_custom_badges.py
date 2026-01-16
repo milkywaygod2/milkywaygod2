@@ -1,4 +1,7 @@
 import os
+import io
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPM
 import requests
 import base64
 from io import BytesIO
@@ -297,8 +300,17 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         <text x="{total_width - (text_width_approx / 2) - 10}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
     </svg>'''
     
+    # Save SVG (as master source)
     with open(os.path.join(OUTPUT_DIR, f"{filename}.svg"), "w", encoding="utf-8") as f:
         f.write(final_svg)
+
+    # Convert to PNG (Rasterization)
+    try:
+        png_path = os.path.join(OUTPUT_DIR, f"{filename}.png")
+        drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
+        renderPM.drawToFile(drawing, png_path, fmt="PNG")
+    except Exception as e:
+        print(f"  [Error] Failed to convert {filename} to PNG: {e}")
 
 if __name__ == "__main__":
     print(f"Starting Badge Generation for {len(badges)} badges...")
