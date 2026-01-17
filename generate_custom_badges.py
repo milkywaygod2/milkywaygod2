@@ -4,6 +4,7 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
 import requests
 import base64
+import re
 from io import BytesIO
 
 # Configuration
@@ -15,9 +16,9 @@ FONT_SIZE = 11    # Reverted to original size
 PADDING_X = 8
 ICON_TEXT_GAP = 6
 FONT_FAMILY = "Verdana, Geneva, sans-serif"
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
-# Badge Definitions: (Filename, Label, HexColor, SimpleIconsSlug, ForcedURL)
-# Note: Background is #2D2D2D to support full-color icons.
 badges = [
     # C / C++ Group
     ("c", "C", "#00599C", "c", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"),
@@ -94,10 +95,6 @@ badges = [
     ("notion", "Notion", "#000000", "notion", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"),
 ]
 
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
-
-# Hardcoded paths for icons that confuse the CDN or need custom paths
 CUSTOM_PATHS = {
     # C++ Extended Groups
     "paddle-ocr": "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z", # Fallback
@@ -154,20 +151,12 @@ def get_text_width(text):
     return int(width)
 
 def fetch_local_or_url(slug, forced_url=None):
-    # 1. Try local overrides first
-    local_svg = os.path.join(SRC_DIR, f"{slug}.svg")
     local_png = os.path.join(SRC_DIR, f"{slug}.png")
-    
-    if os.path.exists(local_svg):
-        with open(local_svg, "r", encoding="utf-8") as f:
-            return f.read(), True # content, is_svg
-            
     if os.path.exists(local_png):
         with open(local_png, "rb") as f:
             enc = base64.b64encode(f.read()).decode()
-            return f"data:image/png;base64,{enc}", False # content as href, is_svg=False
+            return f"data:image/png;base64,{enc}", False
 
-    # 2. Try forced URL if provided
     if forced_url:
         try:
             r = requests.get(forced_url)
@@ -192,51 +181,28 @@ def fetch_local_or_url(slug, forced_url=None):
 
     return None, False
 
-
 def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
-    # Sanitize color_hex to ensure it works with or without '#'
     color_hex = color_hex.lstrip('#')
-    print(f"Generating {filename}...")
-    
-    # Define the SVG structure
-    # We add a radial gradient to create a subtle glow behind the logo
-    # This ensures dark logos are visible on the dark background
-    
-    # Calculate width based on text length (approximate)
-    # Base padding (30 for icon) + text length * char width (~7-8) + padding (10)
-    # Using a slightly improved heuristic for Verdana 11 bold
     char_width = 8.5 if FONT_SIZE > 10 else 7.5
     text_width_approx = len(label) * char_width 
-    # Minimum width to accommodate icon + text
     total_width = int(30 + text_width_approx + 10)
     
-    
-    # Background Rectangle
-    bg_rect = f'<rect width="{total_width}" height="40" rx="4" fill="#{color_hex}"/>'
+    bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#{color_hex}"/>'
 
     logo_content, is_svg = fetch_local_or_url(icon_slug, forced_url)
     logo_svg_element = ""
     
     if logo_content:
-        # If it's an SVG, we try to strip the XML/DOCTYPE header and inject it
         if is_svg:
-            # Simple strip of headers to embed as inner content
-            # This is a bit hacky but works for most clean SVGs
-            # Find the start of the <svg> tag
             start_svg = logo_content.find("<svg")
             if start_svg != -1:
-                # Find the end of the opening <svg ...> tag to extract content
                 end_opening_tag = logo_content.find(">", start_svg)
                 end_svg = logo_content.rfind("</svg>")
                 
                 if end_opening_tag != -1 and end_svg != -1:
                     inner_content = logo_content[end_opening_tag+1:end_svg]
-                    # We wrap it in a nested svg to handle viewbox/scaling
-                    # But wait, original viewboxes vary. 
-                    # Ideally we copy the viewbox from the original SVG string.
-                    import re
                     viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
-                    viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else 'viewBox="0 0 128 128"' # Default/Guess
+                    viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else 'viewBox="0 0 128 128"'
                     
                     logo_svg_element = f'<svg x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" {viewbox_attr}>{inner_content}</svg>'
                 else:
@@ -287,6 +253,15 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         if "<path" in logo_svg_element:
              logo_svg_element = f'<svg x="0" y="0" width="{BADGE_HEIGHT}" height="{BADGE_HEIGHT}" viewBox="0 0 40 40">{logo_svg_element}</svg>'
 
+    src_svg = f'''
+        <svg xmlns="http://www.w3.org/2000/svg" 
+    width="{total_width}" 
+    height="{BADGE_HEIGHT}" 
+    viewBox="0 0 {total_width} {BADGE_HEIGHT}">
+        {bg_rect}
+        {logo_svg_element}
+    </svg>'''
+
     final_svg = f'''
     <svg xmlns="http://www.w3.org/2000/svg" 
     width="{total_width}" 
@@ -299,14 +274,16 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     
     try:
         png_path = os.path.join(OUTPUT_DIR, f"{filename}.png")
+        src_png_path = os.path.join(INPUT_DIR, f"{filename}.png")
         drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
         renderPM.drawToFile(drawing, png_path, fmt="PNG", bg=None)
+        src_drawing = svg2rlg(io.BytesIO(src_svg.encode("utf-8")))
+        renderPM.drawToFile(src_drawing, src_png_path, fmt="PNG", bg=None)
     except Exception as e:
         print(f"  [Error] Failed to convert {filename} to PNG: {e}")
 
 if __name__ == "__main__":
     for badge in badges:
-        # Handle optional URL
         if len(badge) == 5:
             generate_badge(badge[0], badge[1], badge[2], badge[3], badge[4])
         else:
