@@ -10,6 +10,7 @@ from io import BytesIO
 # Configuration
 OUTPUT_DIR = "icons"
 SRC_DIR = "icons_src"
+INPUT_DIR = "icons_src" # Added to fix runtime error
 BADGE_HEIGHT = 28
 ICON_HEIGHT = 22  # Reverted to larger size
 FONT_SIZE = 11    # Reverted to original size
@@ -21,68 +22,68 @@ if not os.path.exists(OUTPUT_DIR):
 
 badges = [
     # C / C++ Group
-    ("c", "C", "#00599C", "c", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg"),
-    ("cpp11", "C++11", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("cpp14", "C++14", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("cpp17", "C++17", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("cpp20", "C++20", "#00599C", "cplusplus", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"),
-    ("boost", "Boost", "#00599C", "boost", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/boost/boost-original.svg"),
-    ("opencv", "OpenCV", "#00599C", "opencv", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg"),
+    ("c", "C", "#00599C", "c", None),
+    ("cpp11", "C++11", "#00599C", "cpp", None),
+    ("cpp14", "C++14", "#00599C", "cpp", None),
+    ("cpp17", "C++17", "#00599C", "cpp", None),
+    ("cpp20", "C++20", "#00599C", "cpp", None),
+    ("boost", "Boost", "#00599C", "boost", None),
+    ("opencv", "OpenCV", "#00599C", "opencv", None),
     ("tesseract", "Tesseract", "#00599C", "tesseract", None), 
     ("paddle-ocr", "PaddleOCR", "#00599C", "paddlepaddle", None), 
     ("mfc", "MFC", "#00599C", "microsoft", None), 
     ("unreal5", "UnrealEngine5", "#00599C", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
 
     # Python / Web
-    ("python", "Python", "#00599C", "python", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"),
-    ("flask", "Flask", "#00599C", "flask", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"),
-    ("ollama", "Ollama", "#00599C", "ollama", "https://ollama.com/public/ollama.png"), 
+    ("python", "Python", "#00599C", "python", None),
+    ("flask", "Flask", "#00599C", "flask", None),
+    ("ollama", "Ollama", "#00599C", "ollama", None), 
     ("deepseek-ocr", "DeepSeek", "#00599C", "deepseek-ocr", None), 
 
     # Java
-    ("java", "Java", "#E34F26", "java", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"),
-    ("spring", "Spring", "#6DB33F", "spring", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"),
+    ("java", "Java", "#E34F26", "java", None),
+    ("spring", "Spring", "#6DB33F", "spring", None),
 
     # Mobile / Front
-    ("dart", "Dart", "#0175C2", "dart", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"),
-    ("flutter", "Flutter", "#02569B", "flutter", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"),
-    ("html5", "HTML5", "#00599C", "html5", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"),
+    ("dart", "Dart", "#0175C2", "dart", None),
+    ("flutter", "Flutter", "#02569B", "flutter", None),
+    ("html5", "HTML5", "#00599C", "html5", None),
 
     # DB / NAS
-    ("mysql", "MySQL", "#4479A1", "mysql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"),
-    ("postgresql", "PostgreSQL", "#4169E1", "postgresql", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"),
+    ("mysql", "MySQL", "#4479A1", "mysql", None),
+    ("postgresql", "PostgreSQL", "#4169E1", "postgresql", None),
     ("synology", "Synology", "#B3B3B3", "synology", None), # Grey
 
     # Tools
-    ("git", "Git", "#F05032", "git", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"),
-    ("github", "GitHub", "#181717", "github", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"),
+    ("git", "Git", "#F05032", "git", None),
+    ("github", "GitHub", "#181717", "github", None),
     ("gitextensions", "GitExtensions", "#252525", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), 
     ("winmerge", "WinMerge", "#82937F", "winmerge", None), # Pale Green
     ("windbg", "WinDbg", "#00599C", "windbg", None), # Microsoft Blue
-    ("figma", "Figma", "#F24E1E", "figma", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"),
-    ("drawio", "Draw.io", "#F08705", "drawdotio", None), # Orange
+    ("figma", "Figma", "#F24E1E", "figma", None),
+    ("drawio", "Draw.io", "#F08705", "drawio", None), # Orange
 
     # IDEs
-    ("visualstudio", "VisualStudio", "#5C2D91", "visualstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"),
-    ("vscode", "Vscode", "#007ACC", "visualstudiocode", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"),
-    ("rider", "Rider", "#000000", "rider", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetbrains/jetbrains-original.svg"), # JetBrains Black
-    ("androidstudio", "AndroidStudio", "#3DDC84", "androidstudio", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"),
+    ("visualstudio", "VisualStudio", "#5C2D91", "visualstudio", None),
+    ("vscode", "Vscode", "#007ACC", "vscode", None),
+    ("rider", "Rider", "#000000", "rider", None), # JetBrains Black
+    ("androidstudio", "AndroidStudio", "#3DDC84", "androidstudio", None),
 
     # Internal / Custom Agentic
     ("antigravity", "Antigravity", "#4B0082", "antigravity", None), # Indigo
     ("context7", "Context7", "#008080", "context7", None), # Teal
     ("sequentialthinking", "SequentialThinking", "#FF4500", "sequentialthinking", None), # OrangeRed
-    ("flywright", "Flywright", "#45BA4B", "playwright", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg"),
+    ("flywright", "Flywright", "#45BA4B", "playwright", None),
 
     # Design / 3D
-    ("photoshop", "Photoshop", "#31A8FF", "adobephotoshop", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg"),
-    ("illustrator", "Illustrator", "#FF9A00", "adobeillustrator", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg"),
-    ("lightroom", "Lightroom", "#31A8FF", "adobelightroom", None), 
-    ("premiere", "Premiere", "#9999FF", "adobepremierepro", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg"),
-    ("aftereffects", "AfterEffects", "#9999FF", "adobeaftereffects", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg"),
-    ("c4d", "Cinema4D", "#004886", "cinema4d", None),
-    ("rhino", "Rhino", "#800000", "rhinoceros", None),
-    ("blender", "Blender", "#E87D0D", "blender", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg"),
+    ("photoshop", "Photoshop", "#31A8FF", "photoshop", None),
+    ("illustrator", "Illustrator", "#FF9A00", "illustrator", None),
+    ("lightroom", "Lightroom", "#31A8FF", "lightroom", None), 
+    ("premiere", "Premiere", "#9999FF", "premiere", None),
+    ("aftereffects", "AfterEffects", "#9999FF", "aftereffects", None),
+    ("c4d", "Cinema4D", "#004886", "c4d", None),
+    ("rhino", "Rhino", "#800000", "rhino", None),
+    ("blender", "Blender", "#E87D0D", "blender", None),
     ("keyshot", "KeyShot", "#000000", "keyshot", None),
 
     # Other
@@ -92,7 +93,7 @@ badges = [
     # Certs (Proxies)
     ("sqld", "SQLD", "#FFA500", "sqld", None),
     ("qnet", "Q-Net", "#000080", "qnet", None),
-    ("notion", "Notion", "#000000", "notion", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"),
+    ("notion", "Notion", "#000000", "notion", None),
 ]
 
 CUSTOM_PATHS = {
@@ -151,6 +152,11 @@ def get_text_width(text):
     return int(width)
 
 def fetch_local_or_url(slug, forced_url=None):
+    local_svg = os.path.join(SRC_DIR, f"{slug}.svg")
+    if os.path.exists(local_svg):
+        with open(local_svg, "r", encoding="utf-8") as f:
+            return f.read(), True
+
     local_png = os.path.join(SRC_DIR, f"{slug}.png")
     if os.path.exists(local_png):
         with open(local_png, "rb") as f:
