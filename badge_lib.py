@@ -1,100 +1,21 @@
 import os
 import io
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
-import requests
 import base64
 import re
-from io import BytesIO
+import requests
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPM
+from sys_util_core.jsystems import JLogger
 
 # Configuration
 OUTPUT_DIR = "icons"
 SRC_DIR = "icons_src"
-INPUT_DIR = "icons_src" # Added to fix runtime error
 BADGE_HEIGHT = 28
-ICON_HEIGHT = 22  # Reverted to larger size
-FONT_SIZE = 11    # Reverted to original size
+ICON_HEIGHT = 22
+FONT_SIZE = 11
 PADDING_X = 8
 ICON_TEXT_GAP = 6
 FONT_FAMILY = "Verdana, Geneva, sans-serif"
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
-
-badges = [
-    # C / C++ Group
-    ("c", "C", "#00599C", "c", None),
-    ("cpp11", "C++11", "#00599C", "cpp", None),
-    ("cpp14", "C++14", "#00599C", "cpp", None),
-    ("cpp17", "C++17", "#00599C", "cpp", None),
-    ("cpp20", "C++20", "#00599C", "cpp", None),
-    ("boost", "Boost", "#00599C", "boost", None),
-    ("opencv", "OpenCV", "#00599C", "opencv", None),
-    ("tesseract", "Tesseract", "#00599C", "tesseract", None), 
-    ("paddle-ocr", "PaddleOCR", "#00599C", "paddlepaddle", None), 
-    ("mfc", "MFC", "#00599C", "microsoft", None), 
-    ("unreal5", "UnrealEngine5", "#00599C", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
-
-    # Python / Web
-    ("python", "Python", "#00599C", "python", None),
-    ("flask", "Flask", "#00599C", "flask", None),
-    ("ollama", "Ollama", "#00599C", "ollama", None), 
-    ("deepseek-ocr", "DeepSeek", "#00599C", "deepseek-ocr", None), 
-
-    # Java
-    ("java", "Java", "#E34F26", "java", None),
-    ("spring", "Spring", "#6DB33F", "spring", None),
-
-    # Mobile / Front
-    ("dart", "Dart", "#0175C2", "dart", None),
-    ("flutter", "Flutter", "#02569B", "flutter", None),
-    ("html5", "HTML5", "#00599C", "html5", None),
-
-    # DB / NAS
-    ("mysql", "MySQL", "#4479A1", "mysql", None),
-    ("postgresql", "PostgreSQL", "#4169E1", "postgresql", None),
-    ("synology", "Synology", "#B3B3B3", "synology", None), # Grey
-
-    # Tools
-    ("git", "Git", "#F05032", "git", None),
-    ("github", "GitHub", "#181717", "github", None),
-    ("gitextensions", "GitExtensions", "#252525", "gitextensions", "https://gitextensions.github.io/images/gitextensions-logo.png"), 
-    ("winmerge", "WinMerge", "#82937F", "winmerge", None), # Pale Green
-    ("windbg", "WinDbg", "#00599C", "windbg", None), # Microsoft Blue
-    ("figma", "Figma", "#F24E1E", "figma", None),
-    ("drawio", "Draw.io", "#F08705", "drawio", None), # Orange
-
-    # IDEs
-    ("visualstudio", "VisualStudio", "#5C2D91", "visualstudio", None),
-    ("vscode", "Vscode", "#007ACC", "vscode", None),
-    ("rider", "Rider", "#000000", "rider", None), # JetBrains Black
-    ("androidstudio", "AndroidStudio", "#3DDC84", "androidstudio", None),
-
-    # Internal / Custom Agentic
-    ("antigravity", "Antigravity", "#4B0082", "antigravity", None), # Indigo
-    ("context7", "Context7", "#008080", "context7", None), # Teal
-    ("sequentialthinking", "SequentialThinking", "#FF4500", "sequentialthinking", None), # OrangeRed
-    ("flywright", "Flywright", "#45BA4B", "playwright", None),
-
-    # Design / 3D
-    ("photoshop", "Photoshop", "#31A8FF", "photoshop", None),
-    ("illustrator", "Illustrator", "#FF9A00", "illustrator", None),
-    ("lightroom", "Lightroom", "#31A8FF", "lightroom", None), 
-    ("premiere", "Premiere", "#9999FF", "premiere", None),
-    ("aftereffects", "AfterEffects", "#9999FF", "aftereffects", None),
-    ("c4d", "Cinema4D", "#004886", "c4d", None),
-    ("rhino", "Rhino", "#800000", "rhino", None),
-    ("blender", "Blender", "#E87D0D", "blender", None),
-    ("keyshot", "KeyShot", "#000000", "keyshot", None),
-
-    # Other
-    ("visualbasic", "VisualBasic", "#5C2D91", "visualbasic", None), 
-    ("excel-xlsm", "ExcelXlsm", "#217346", "microsoftexcel", None),
-
-    # Certs (Proxies)
-    ("sqld", "SQLD", "#FFA500", "sqld", None),
-    ("qnet", "Q-Net", "#000080", "qnet", None),
-    ("notion", "Notion", "#000000", "notion", None),
-]
 
 CUSTOM_PATHS = {
     # C++ Extended Groups
@@ -108,7 +29,7 @@ CUSTOM_PATHS = {
     "visualstudio": "M17 0c-.5 0-1 .2-1.4.6L9 6.2 2.6 3a1 1 0 0 0-1.4 1v16a1 1 0 0 0 1.4 1L9 17.8l6.6 5.6c.4.4.9.6 1.4.6 1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z m0 18.2L11.5 12 17 5.8v12.4z M9.8 13.7L5 16.1V7.9l4.8 2.4 1.7-1.7-6.9-3.4a.99.99 0 0 0-1-.1c-.4.2-.6.5-.6.9v12c0 .4.2.7.6.9.3.2.7.2 1 0l6.9-3.4-1.7-1.8z",
     "visualstudiocode": "M23.15 2.587L18.21.21a.71.71 0 00-1 .492l-1.66 6.6L2.2 1.39a.77.77 0 00-1.2.56v20a.77.77 0 001.2.57L15.5 16.7l1.66 6.6a.71.71 0 001 .5l4.94-2.38a.72.72 0 00.3-.64V3.22a.72.72 0 00-.25-.633z",
     "winmerge": "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z", # Branch/Nodes
-    "windbg": "M19 8h-2.81a5.985 5.985 0 0 0-1.82-1.96l.93-.93a.996.996 0 1 0-1.41-1.41l-1.47 1.47C11.96 5.06 11.49 5 11 5s-.96.06-1.41.17l-1.48-1.48a.996.996 0 1 0-1.41 1.41l.93.93A5.985 5.985 0 0 0 5.81 8H3v2h2.29c-.11.64-.18 1.31-.18 2s.07 1.36.18 2H3v2h2.81c.71 1.12 1.69 2.05 2.87 2.66l-.91.91a.996.996 0 1 0 1.41 1.41l1.46-1.46C10.51 19.94 10.98 20 11.45 20s.95-.06 1.4-.17l1.46 1.46a.996.996 0 1 0 1.41-1.41l-.9-1.9-.9c1.18-.61 2.16-1.54 2.87-2.66H21v-2h-2.29c.11-.64.18-1.31.18-2s-.07-1.36-.18-2H21V8zM11.45 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z", # Bug
+    "windbg": "M0 0h11.377v11.372H0zM12.623 0H24v11.372H12.623H0zM0 12.623h11.377V24H0zM12.623 12.623H24V24H12.623z", # Microsoft Logo (Fallback for broken bug path)
     "drawdotio": "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 16.5V12H6v-2h3V7.5l4.5 4.5-4.5 4.5z", # Simple block diagram
     "gitextensions": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8 8 8z", # Fallback Circle
 
@@ -135,23 +56,18 @@ CUSTOM_PATHS = {
     "qnet": "M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z",
 }
 
+def ensure_dirs():
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
+    if not os.path.exists(SRC_DIR):
+        os.makedirs(SRC_DIR)
 
 def get_text_width(text):
     # Rough estimate for text width (verdana 11px)
     return max(len(text) * 7.5 + 10, 20)
-    # Uppercase chars are wider ~8-9px, Lower ~6-7px.
-    # We'll use a simple multiplier.
-    width = 0
-    for char in text:
-        if '\u3131' <= char <= '\u318E' or '\uAC00' <= char <= '\uD7A3': # Korean
-            width += 13
-        elif char.isupper():
-            width += 9
-        else:
-            width += 7.5
-    return int(width)
 
 def fetch_local_or_url(slug, forced_url=None):
+    ensure_dirs()
     local_svg = os.path.join(SRC_DIR, f"{slug}.svg")
     if os.path.exists(local_svg):
         with open(local_svg, "r", encoding="utf-8") as f:
@@ -173,10 +89,9 @@ def fetch_local_or_url(slug, forced_url=None):
                      enc = base64.b64encode(r.content).decode()
                      return f"data:image/png;base64,{enc}", False
         except Exception as e:
-            print(f"Failed to fetch {forced_url}: {e}")
+            JLogger().log_warning(f"Failed to fetch {forced_url}: {e}")
 
-    # 3. Try Devicon (Standard)
-    # Convention: https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{slug}/{slug}-original.svg
+    # Try Devicon (Standard)
     devicon_url = f"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{slug}/{slug}-original.svg"
     try:
         r = requests.get(devicon_url, timeout=2)
@@ -188,6 +103,7 @@ def fetch_local_or_url(slug, forced_url=None):
     return None, False
 
 def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
+    JLogger().log_info(f"Generating badge: {filename}...")
     color_hex = color_hex.lstrip('#')
     char_width = 8.5 if FONT_SIZE > 10 else 7.5
     text_width_approx = len(label) * char_width 
@@ -216,7 +132,6 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     enc = base64.b64encode(logo_content.encode("utf-8")).decode()
                     logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="data:image/svg+xml;base64,{enc}"/>'
             else:
-                 # Fallback if no svg tag found
                  pass
         else:
             # It's a base64 encoded image string (e.g. PNG)
@@ -227,15 +142,13 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         path_d = ""
         if icon_slug in CUSTOM_PATHS:
             path_d = CUSTOM_PATHS[icon_slug]
-            # Use white fill for monochrome
-            logo_svg_element = f'<path fill="#fff" transform="scale(1.1) translate(6,6)" d="{path_d}"/>' # Rough adjustment
+            logo_svg_element = f'<path fill="#fff" transform="scale(1.1) translate(6,6)" d="{path_d}"/>' 
         else:
             # Try Simple Icons
             try:
                 icon_url = f"https://cdn.simpleicons.org/{icon_slug}/white"
                 r = requests.get(icon_url)
                 if r.status_code == 200:
-                    # Extract path d
                     start_d = r.text.find('d="')
                     if start_d != -1:
                         end_d = r.text.find('"', start_d + 3)
@@ -244,18 +157,9 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
             except:
                 pass
                 
-        # Scale adjustment for monochrome paths (viewbox 24->26?)
-        # For simplicity, we keep the original logic for paths if fallback
         if not logo_svg_element:
-             print(f"  [Warning] No logo found for {filename}")
+             JLogger().log_warning(f"  [Warning] No logo found for {filename}")
              
-        # If using path, we usually wrap it in a transform for size. 
-        # But wait, original code was 24x24 viewbox.
-        # If we successfully created a path element, it expects a parent scaling 
-        # or we assume the path is 24x24.
-        # Let's wrap path-based logos in a standard 24->26 scaling group if needed
-        # Or just place it.
-        # To maintain consistency, if it is a path, we wrap:
         if "<path" in logo_svg_element:
              logo_svg_element = f'<svg x="0" y="0" width="{BADGE_HEIGHT}" height="{BADGE_HEIGHT}" viewBox="0 0 40 40">{logo_svg_element}</svg>'
 
@@ -279,19 +183,45 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     </svg>'''
     
     try:
+        ensure_dirs()
         png_path = os.path.join(OUTPUT_DIR, f"{filename}.png")
-        src_png_path = os.path.join(INPUT_DIR, f"{filename}.png")
+        src_png_path = os.path.join(SRC_DIR, f"{filename}.png")
+        
+        # Only write to src if it doesn't exist to avoid overwriting original sources?
+        # The original script overwrote input dir with the badge result? 
+        # Line 283: src_png_path = os.path.join(INPUT_DIR, f"{filename}.png")
+        # And OUTPUT_DIR = "icons", INPUT_DIR = "icons_src"
+        
         drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
         renderPM.drawToFile(drawing, png_path, fmt="PNG", bg=None)
+        
+        # Original script also saved a version to SRC_DIR? That seems odd if SRC_DIR is for inputs.
+        # But looking at the original code:
+        # src_svg was the badge WITHOUT text. final_svg was badge WITH text.
+        # It saved "src_svg" to "src_png_path" (SRC_DIR). 
+        # I will keep this behavior but maybe it's for having a "logo only" version?
+        
         src_drawing = svg2rlg(io.BytesIO(src_svg.encode("utf-8")))
         renderPM.drawToFile(src_drawing, src_png_path, fmt="PNG", bg=None)
+        
     except Exception as e:
-        print(f"  [Error] Failed to convert {filename} to PNG: {e}")
+        JLogger().log_error(f"  [Error] Failed to convert {filename} to PNG: {e}")
 
-if __name__ == "__main__":
-    for badge in badges:
-        if len(badge) == 5:
-            generate_badge(badge[0], badge[1], badge[2], badge[3], badge[4])
+def download_resource(slug, url):
+    ensure_dirs()
+    try:
+        # Check if exists
+        target_path = os.path.join(SRC_DIR, f"{slug}.svg")
+        if os.path.exists(target_path):
+            return # Skip if exists
+            
+        JLogger().log_info(f"Downloading {slug} from {url}...")
+        r = requests.get(url, timeout=10)
+        if r.status_code == 200:
+            with open(target_path, "wb") as f:
+                f.write(r.content)
+            JLogger().log_info(f"  Successfully saved {slug}.svg")
         else:
-            generate_badge(badge[0], badge[1], badge[2], badge[3])
-    print("Done.")
+            JLogger().log_warning(f"  Failed with status code {r.status_code}")
+    except Exception as e:
+        JLogger().log_error(f"  Error: {e}")

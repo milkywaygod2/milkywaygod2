@@ -1,0 +1,35 @@
+############################################
+# Basically Ignore everything in the project except for Selected folders
+*
+
+############################################
+# Selected folders to keep
+
+# Git
+!.gitignore
+!.gitattributes
+!LICENSE
+!README.md
+
+# Antigravity (Agent)
+!.agent/
+!.agent/rules/
+!.agent/rules/**/*
+!.agent/workflows/
+!.agent/workflows/**/*
+
+# Python Standard
+!*.py
+!requirements.txt
+
+# Additional Script Folders (Auto-detected)
+# icons
+!icons/
+!icons/**/*.png
+!icons/**/*.jpg
+!icons/**/*.svg
+# icons_src
+!icons_src/
+!icons_src/**/*.png
+!icons_src/**/*.jpg
+!icons_src/**/*.svg
