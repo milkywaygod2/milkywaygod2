@@ -17,6 +17,8 @@
 !.agent/rules/**/*
 !.agent/workflows/
 !.agent/workflows/**/*
+!.agent/skills/
+!.agent/skills/**/*
 
 # Python Standard
 !*.py
