@@ -205,6 +205,8 @@ if __name__ == "__main__":
         # Using run_with_loading for consistent user experience per template
         return_main: Tuple[str, bool] = GuiManager().run_with_loading(main, title="Generating Badges")
 
+    except SystemExit:
+        return_main = ("Done", True)
     except Exception as _except:
         return_main = (_except, False)
     finally:

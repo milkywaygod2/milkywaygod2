@@ -3,13 +3,14 @@ import io
 import base64
 import re
 import requests
+from pathlib import Path
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
 from sys_util_core.jsystems import JLogger
 
 # Configuration
-OUTPUT_DIR = "icons"
-SRC_DIR = "icons_src"
+OUTPUT_DIR = Path("icons")
+SRC_DIR = Path("icons_src")
 BADGE_HEIGHT = 28
 ICON_HEIGHT = 22
 FONT_SIZE = 11
@@ -57,10 +58,10 @@ CUSTOM_PATHS = {
 }
 
 def ensure_dirs():
-    if not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
-    if not os.path.exists(SRC_DIR):
-        os.makedirs(SRC_DIR)
+    if not OUTPUT_DIR.exists():
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    if not SRC_DIR.exists():
+        SRC_DIR.mkdir(parents=True, exist_ok=True)
 
 def get_text_width(text):
     # Rough estimate for text width (verdana 11px)
@@ -68,13 +69,13 @@ def get_text_width(text):
 
 def fetch_local_or_url(slug, forced_url=None):
     ensure_dirs()
-    local_svg = os.path.join(SRC_DIR, f"{slug}.svg")
-    if os.path.exists(local_svg):
+    local_svg = SRC_DIR / f"{slug}.svg"
+    if local_svg.exists():
         with open(local_svg, "r", encoding="utf-8") as f:
             return f.read(), True
 
-    local_png = os.path.join(SRC_DIR, f"{slug}.png")
-    if os.path.exists(local_png):
+    local_png = SRC_DIR / f"{slug}.png"
+    if local_png.exists():
         with open(local_png, "rb") as f:
             enc = base64.b64encode(f.read()).decode()
             return f"data:image/png;base64,{enc}", False
@@ -163,15 +164,6 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         if "<path" in logo_svg_element:
              logo_svg_element = f'<svg x="0" y="0" width="{BADGE_HEIGHT}" height="{BADGE_HEIGHT}" viewBox="0 0 40 40">{logo_svg_element}</svg>'
 
-    src_svg = f'''
-        <svg xmlns="http://www.w3.org/2000/svg" 
-    width="{total_width}" 
-    height="{BADGE_HEIGHT}" 
-    viewBox="0 0 {total_width} {BADGE_HEIGHT}">
-        {bg_rect}
-        {logo_svg_element}
-    </svg>'''
-
     final_svg = f'''
     <svg xmlns="http://www.w3.org/2000/svg" 
     width="{total_width}" 
@@ -179,30 +171,29 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     viewBox="0 0 {total_width} {BADGE_HEIGHT}">
         {bg_rect}
         {logo_svg_element}
-        <text x="{total_width - (text_width_approx / 2) - 10}" y="25" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
+        <text x="{total_width - (text_width_approx / 2) - 10}" y="25" text-anchor="middle" font-family="{FONT_FAMILY}" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
     </svg>'''
     
     try:
         ensure_dirs()
-        png_path = os.path.join(OUTPUT_DIR, f"{filename}.png")
-        src_png_path = os.path.join(SRC_DIR, f"{filename}.png")
-        
-        # Only write to src if it doesn't exist to avoid overwriting original sources?
-        # The original script overwrote input dir with the badge result? 
-        # Line 283: src_png_path = os.path.join(INPUT_DIR, f"{filename}.png")
-        # And OUTPUT_DIR = "icons", INPUT_DIR = "icons_src"
+        png_path = OUTPUT_DIR / f"{filename}.png"
+        src_png_path = SRC_DIR / f"{filename}.png"
         
         drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
-        renderPM.drawToFile(drawing, png_path, fmt="PNG", bg=None)
+        renderPM.drawToFile(drawing, str(png_path), fmt="PNG", bg=None)
         
-        # Original script also saved a version to SRC_DIR? That seems odd if SRC_DIR is for inputs.
-        # But looking at the original code:
-        # src_svg was the badge WITHOUT text. final_svg was badge WITH text.
-        # It saved "src_svg" to "src_png_path" (SRC_DIR). 
-        # I will keep this behavior but maybe it's for having a "logo only" version?
+        # Logo-only SVG
+        src_svg = f'''
+        <svg xmlns="http://www.w3.org/2000/svg" 
+    width="{total_width}" 
+    height="{BADGE_HEIGHT}" 
+    viewBox="0 0 {total_width} {BADGE_HEIGHT}">
+        {bg_rect}
+        {logo_svg_element}
+    </svg>'''
         
         src_drawing = svg2rlg(io.BytesIO(src_svg.encode("utf-8")))
-        renderPM.drawToFile(src_drawing, src_png_path, fmt="PNG", bg=None)
+        renderPM.drawToFile(src_drawing, str(src_png_path), fmt="PNG", bg=None)
         
     except Exception as e:
         JLogger().log_error(f"  [Error] Failed to convert {filename} to PNG: {e}")
@@ -210,18 +201,17 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
 def download_resource(slug, url):
     ensure_dirs()
     try:
-        # Check if exists
-        target_path = os.path.join(SRC_DIR, f"{slug}.svg")
-        if os.path.exists(target_path):
-            return # Skip if exists
+        target_path = SRC_DIR / f"{slug}.svg"
+        if target_path.exists():
+            return
             
         JLogger().log_info(f"Downloading {slug} from {url}...")
         r = requests.get(url, timeout=10)
         if r.status_code == 200:
-            with open(target_path, "wb") as f:
-                f.write(r.content)
+            target_path.write_bytes(r.content)
             JLogger().log_info(f"  Successfully saved {slug}.svg")
         else:
             JLogger().log_warning(f"  Failed with status code {r.status_code}")
     except Exception as e:
         JLogger().log_error(f"  Error: {e}")
+
