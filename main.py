@@ -185,7 +185,6 @@ def main() -> Tuple[str, bool]:
         return _msg_exception, False
 
 if __name__ == "__main__":
-    return_main = ("Process Interrupted", False)
     try:
         # Define Arguments options of kwargs
         args_config = [
@@ -202,6 +201,8 @@ if __name__ == "__main__":
         SystemManager().launch_proper(admin=False, args_config=args_config, description="Badge Generator")
         return_main: Tuple[str, bool] = GuiManager().run_with_loading(main, title="Generating Badges")
 
+    except ArgManagerHelpExit:
+        return_main = (None, True, True)
     except Exception as _except:
         return_main = (_except, False)
     finally:
