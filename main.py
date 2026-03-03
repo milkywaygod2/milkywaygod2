@@ -17,9 +17,9 @@ else:
         if path_jfw_py not in sys.path:
             sys.path.insert(0, path_jfw_py)
         try:
-            from sys_util_core import *
+            from jcore import *
         except ImportError as e:
-            print(f"[ERROR] py_sys_script 모듈 import 실패: {e}")
+            print(f"[ERROR] japp-framework-py 모듈 import 실패: {e}")
             sys.exit(1)
     else:
         print(f"[ERROR] 환경변수 '{PATH_JFW_PY}'에 경로가 세팅되어 있지 않거나, 경로가 잘못되었습니다.")

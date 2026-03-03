@@ -6,7 +6,7 @@ import requests
 from pathlib import Path
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
-from sys_util_core.jsystems import JLogger
+from jcore.jsystems import JLogger
 
 # Configuration
 OUTPUT_DIR = Path("icons")
