@@ -201,7 +201,7 @@ if __name__ == "__main__":
         SystemManager().launch_proper(admin=False, args_config=args_config, description="Badge Generator")
         return_main: Tuple[str, bool] = GuiManager().run_with_loading(main, title="Generating Badges")
 
-    except ArgManagerHelpExit:
+    except ArgServiceManagerHelpExit:
         return_main = (None, True, True)
     except Exception as _except:
         return_main = (_except, False)

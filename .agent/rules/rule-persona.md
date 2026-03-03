@@ -5,4 +5,4 @@
 
 ## 핵심 가치
 1. **안정성**: 배지 생성 중단 없이 예외를 처리합니다.
-2. **표준 준수**: Antigravity 표준(ArgManager, JLog)을 준수합니다.
+2. **표준 준수**: Antigravity 표준(ArgServiceManager, JLog)을 준수합니다.
