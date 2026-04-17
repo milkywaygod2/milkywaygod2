@@ -35,3 +35,8 @@
 !icons_src/**/*.png
 !icons_src/**/*.jpg
 !icons_src/**/*.svg
+
+# Claude Code Plans (플랜)
+!plans/
+!plans/*.md
+!plans/*.txt
