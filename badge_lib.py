@@ -65,6 +65,60 @@ def ensure_dirs():
     if not SRC_DIR.exists():
         SRC_DIR.mkdir(parents=True, exist_ok=True)
 
+def _average_hex_colors(colors):
+    """여러 hex 색상의 평균값 계산"""
+    r_sum, g_sum, b_sum, count = 0, 0, 0, 0
+    for color in colors:
+        color = color.strip().lstrip('#')
+        if len(color) == 6:
+            r_sum += int(color[0:2], 16)
+            g_sum += int(color[2:4], 16)
+            b_sum += int(color[4:6], 16)
+            count += 1
+    if count == 0:
+        return '#000000'
+    return f'#{r_sum // count:02x}{g_sum // count:02x}{b_sum // count:02x}'
+
+def flatten_gradients(svg_content):
+    """SVG 내 linearGradient/radialGradient를 평균 플랫 컬러로 변환 (svglib 호환)"""
+    try:
+        # gradient ID → 평균 색상 매핑
+        gradients = {}
+        for grad_match in re.finditer(
+            r'<(linear|radial)Gradient[^>]*id=["\']([^"\']+)["\'][^>]*>(.*?)</\1Gradient>',
+            svg_content, flags=re.DOTALL
+        ):
+            grad_id = grad_match.group(2)
+            grad_body = grad_match.group(3)
+            colors = []
+            # stop-color를 style 속성 또는 직접 속성에서 추출
+            for stop_match in re.finditer(r'<stop[^>]*>', grad_body):
+                stop_tag = stop_match.group(0)
+                style_color = re.search(r'stop-color:\s*([^;"]+)', stop_tag)
+                attr_color = re.search(r'stop-color=["\']([^"\']+)["\']', stop_tag)
+                if style_color:
+                    colors.append(style_color.group(1).strip())
+                elif attr_color:
+                    colors.append(attr_color.group(1).strip())
+            if colors:
+                gradients[grad_id] = _average_hex_colors(colors)
+
+        if not gradients:
+            return svg_content
+
+        # url(#id) 참조를 플랫 컬러로 교체
+        for grad_id, flat_color in gradients.items():
+            svg_content = svg_content.replace(f'url(#{grad_id})', flat_color)
+
+        # gradient 정의 제거
+        svg_content = re.sub(
+            r'<(linear|radial)Gradient[^>]*>.*?</\1Gradient>',
+            '', svg_content, flags=re.DOTALL
+        )
+        return svg_content
+    except Exception:
+        return svg_content
+
 def get_text_width(text):
     # Rough estimate for text width (verdana 11px)
     return max(len(text) * 7.5 + 10, 20)
@@ -93,12 +147,6 @@ def fetch_local_or_url(slug, forced_url=None):
         with open(local_svg, "r", encoding="utf-8") as f:
             return f.read(), True
 
-    local_png = SRC_DIR / f"{slug}.png"
-    if local_png.exists():
-        with open(local_png, "rb") as f:
-            enc = base64.b64encode(f.read()).decode()
-            return f"data:image/png;base64,{enc}", False
-
     if forced_url:
         try:
             r = requests.get(forced_url)
@@ -122,25 +170,64 @@ def fetch_local_or_url(slug, forced_url=None):
 
     return None, False
 
-def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
+def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordmark=False):
     JLogger().log_info(f"Generating badge: {filename}...")
     # Use white background with light gray border
     char_width = 8.5 if FONT_SIZE > 10 else 7.5
     text_width_approx = len(label) * char_width
     total_width = int(30 + text_width_approx + 10)
 
-    bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#FFFFFF" stroke="#E1E4E8" stroke-width="1"/>'
-
     logo_content, is_svg = fetch_local_or_url(icon_slug, forced_url)
+
+    # --- 워드마크 모드: SVG 로고 전체를 배지로 사용 ---
+    if wordmark and logo_content and is_svg:
+        logo_content = flatten_gradients(logo_content)
+        viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
+        if viewbox_match:
+            vb = [float(x) for x in viewbox_match.group(1).split()]
+            if len(vb) == 4:
+                vb_w, vb_h = vb[2], vb[3]
+                aspect = vb_w / vb_h if vb_h > 0 else 4
+                logo_h = BADGE_HEIGHT - 8  # 상하 4px 패딩
+                logo_w = logo_h * aspect
+                wm_width = int(logo_w + 16)  # 좌우 8px 패딩
+                total_width = max(wm_width, total_width)
+
+        bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#FFFFFF" stroke="#E1E4E8" stroke-width="1"/>'
+        start_svg = logo_content.find("<svg")
+        end_opening_tag = logo_content.find(">", start_svg) if start_svg != -1 else -1
+        end_svg = logo_content.rfind("</svg>")
+        if start_svg != -1 and end_opening_tag != -1 and end_svg != -1:
+            inner_content = logo_content[end_opening_tag+1:end_svg]
+            viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else ''
+            logo_x = (total_width - logo_w) / 2
+            logo_y = 4
+            logo_svg_element = f'<svg x="{logo_x}" y="{logo_y}" width="{logo_w}" height="{logo_h}" {viewbox_attr} preserveAspectRatio="xMidYMid meet">{inner_content}</svg>'
+
+            final_svg = f'''
+            <svg xmlns="http://www.w3.org/2000/svg"
+            width="{total_width}"
+            height="{BADGE_HEIGHT}"
+            viewBox="0 0 {total_width} {BADGE_HEIGHT}">
+                {bg_rect}
+                {logo_svg_element}
+            </svg>'''
+            _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element)
+            return
+
+    # --- 표준 모드: 아이콘 + 텍스트 ---
+    bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#FFFFFF" stroke="#E1E4E8" stroke-width="1"/>'
     logo_svg_element = ""
-    
+
     if logo_content:
         if is_svg:
+            # 그래디언트를 플랫 컬러로 전처리
+            logo_content = flatten_gradients(logo_content)
             start_svg = logo_content.find("<svg")
             if start_svg != -1:
                 end_opening_tag = logo_content.find(">", start_svg)
                 end_svg = logo_content.rfind("</svg>")
-                
+
                 if end_opening_tag != -1 and end_svg != -1:
                     inner_content = logo_content[end_opening_tag+1:end_svg]
                     viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
@@ -157,7 +244,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                 else:
                     # Fallback to base64 if parsing fails
                     enc = base64.b64encode(logo_content.encode("utf-8")).decode()
-                    logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="data:image/svg+xml;base64,{enc}"/>'
+                    logo_svg_element = f'<image x="7" y="7" width="{ICON_SIZE}" height="{ICON_SIZE}" href="data:image/svg+xml;base64,{enc}"/>'
             else:
                  pass
         else:
@@ -201,36 +288,40 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
              logo_svg_element = f'<svg x="0" y="0" width="{BADGE_HEIGHT}" height="{BADGE_HEIGHT}" viewBox="0 0 40 40">{logo_svg_element}</svg>'
 
     final_svg = f'''
-    <svg xmlns="http://www.w3.org/2000/svg" 
-    width="{total_width}" 
-    height="{BADGE_HEIGHT}" 
+    <svg xmlns="http://www.w3.org/2000/svg"
+    width="{total_width}"
+    height="{BADGE_HEIGHT}"
     viewBox="0 0 {total_width} {BADGE_HEIGHT}">
         {bg_rect}
         {logo_svg_element}
         <text x="{total_width - (text_width_approx / 2) - 10}" y="{BADGE_HEIGHT / 2 + FONT_SIZE * 0.35}" text-anchor="middle" font-family="{FONT_FAMILY}" font-size="{FONT_SIZE}" fill="#24292E" font-weight="600">{label}</text>
     </svg>'''
-    
+
+    _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element)
+
+def _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element):
+    """배지 SVG를 PNG로 렌더링"""
     try:
         ensure_dirs()
         png_path = OUTPUT_DIR / f"{filename}.png"
         src_png_path = SRC_DIR / f"{filename}.png"
-        
+
         drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
         renderPM.drawToFile(drawing, str(png_path), fmt="PNG", bg=None)
-        
+
         # Logo-only SVG
         src_svg = f'''
-        <svg xmlns="http://www.w3.org/2000/svg" 
-    width="{total_width}" 
-    height="{BADGE_HEIGHT}" 
+        <svg xmlns="http://www.w3.org/2000/svg"
+    width="{total_width}"
+    height="{BADGE_HEIGHT}"
     viewBox="0 0 {total_width} {BADGE_HEIGHT}">
         {bg_rect}
         {logo_svg_element}
     </svg>'''
-        
+
         src_drawing = svg2rlg(io.BytesIO(src_svg.encode("utf-8")))
         renderPM.drawToFile(src_drawing, str(src_png_path), fmt="PNG", bg=None)
-        
+
     except Exception as e:
         JLogger().log_error(f"  [Error] Failed to convert {filename} to PNG: {e}")
 
