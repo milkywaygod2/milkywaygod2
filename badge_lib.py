@@ -146,11 +146,14 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
                     viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else 'viewBox="0 0 128 128"'
 
-                    # Keep original icon colors for white background
+                    # Preserve fill color from root <svg> element (inherited by child elements)
+                    opening_tag = logo_content[start_svg:end_opening_tag+1]
+                    root_fill_match = re.search(r'fill="([^"]+)"', opening_tag)
+                    fill_attr = f' fill="{root_fill_match.group(1)}"' if root_fill_match else ''
+
                     icon_x = ICON_PADDING
-                    icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2  # Vertically center the icon
-                    # Use preserveAspectRatio for automatic centering within viewBox
-                    logo_svg_element = f'<svg x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" {viewbox_attr} preserveAspectRatio="xMidYMid meet">{inner_content}</svg>'
+                    icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2
+                    logo_svg_element = f'<svg x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" {viewbox_attr}{fill_attr} preserveAspectRatio="xMidYMid meet">{inner_content}</svg>'
                 else:
                     # Fallback to base64 if parsing fails
                     enc = base64.b64encode(logo_content.encode("utf-8")).decode()
