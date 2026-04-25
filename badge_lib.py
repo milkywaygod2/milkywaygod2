@@ -9,6 +9,12 @@ from reportlab.graphics import renderPM
 from jcore.l3_diagnostics.jlogger import JLogger
 from xml.etree import ElementTree as ET
 
+try:
+    from playwright.sync_api import sync_playwright
+    _PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    _PLAYWRIGHT_AVAILABLE = False
+
 # Configuration
 OUTPUT_DIR = Path("icons")
 SRC_DIR = Path("icons_src")
@@ -58,6 +64,43 @@ CUSTOM_PATHS = {
     "sqld": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8 8 8zM12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z", 
     "qnet": "M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z",
 }
+
+def create_browser():
+    """Playwright Chromium 브라우저 생성. 실패 시 (None, None) 반환 + svglib 폴백"""
+    if not _PLAYWRIGHT_AVAILABLE:
+        JLogger().log_warning("Playwright 미설치 — svglib 폴백 사용")
+        return None, None
+    try:
+        pw = sync_playwright().start()
+        browser = pw.chromium.launch(headless=True)
+        JLogger().log_info("Playwright Chromium 브라우저 시작 완료")
+        return pw, browser
+    except Exception as e:
+        JLogger().log_warning(f"Playwright 브라우저 시작 실패: {e}")
+        JLogger().log_warning("'python -m playwright install chromium' 실행 필요 — svglib 폴백 사용")
+        return None, None
+
+def close_browser(pw, browser):
+    """Playwright 브라우저 안전 종료"""
+    try:
+        if browser:
+            browser.close()
+        if pw:
+            pw.stop()
+    except Exception:
+        pass
+
+def _render_svg_to_png_playwright(page, svg_content, png_path, width, height):
+    """Playwright를 사용하여 SVG를 PNG로 렌더링"""
+    html = (
+        '<!DOCTYPE html><html><head><meta charset="utf-8">'
+        '<style>*{margin:0;padding:0}body{background:transparent}</style>'
+        f'</head><body>{svg_content}</body></html>'
+    )
+    page.set_viewport_size({"width": width, "height": height})
+    page.set_content(html, wait_until="domcontentloaded")
+    # Windows에서 상대 경로 Errno 22 방지를 위해 절대 경로 사용
+    page.screenshot(path=str(Path(png_path).resolve()), clip={"x": 0, "y": 0, "width": width, "height": height})
 
 def ensure_dirs():
     if not OUTPUT_DIR.exists():
@@ -206,7 +249,7 @@ def fetch_local_or_url(slug, forced_url=None):
 
     return None, False
 
-def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordmark=False):
+def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordmark=False, page=None):
     JLogger().log_info(f"Generating badge: {filename}...")
     # Use white background with light gray border
     char_width = 8.5 if FONT_SIZE > 10 else 7.5
@@ -217,7 +260,8 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
 
     # --- 워드마크 모드: SVG 로고 전체를 배지로 사용 ---
     if wordmark and logo_content and is_svg:
-        logo_content = simplify_svg(logo_content)
+        if page is None:
+            logo_content = simplify_svg(logo_content)
         # viewBox 또는 width/height에서 종횡비 추출
         viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
         svg_w_match = re.search(r'<svg[^>]*\bwidth="([0-9.]+)"', logo_content)
@@ -256,7 +300,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
                 {bg_rect}
                 {logo_svg_element}
             </svg>'''
-            _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element)
+            _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element, page=page)
             return
 
     # --- 표준 모드: 아이콘 + 텍스트 ---
@@ -265,8 +309,9 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
 
     if logo_content:
         if is_svg:
-            # 그래디언트를 플랫 컬러로 전처리
-            logo_content = simplify_svg(logo_content)
+            # Playwright 사용 시 simplify_svg 불필요 (완전한 SVG 렌더링 지원)
+            if page is None:
+                logo_content = simplify_svg(logo_content)
             start_svg = logo_content.find("<svg")
             if start_svg != -1:
                 end_opening_tag = logo_content.find(">", start_svg)
@@ -341,19 +386,16 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
         <text x="{total_width - (text_width_approx / 2) - 10}" y="{BADGE_HEIGHT / 2 + FONT_SIZE * 0.35}" text-anchor="middle" font-family="{FONT_FAMILY}" font-size="{FONT_SIZE}" fill="#24292E" font-weight="600">{label}</text>
     </svg>'''
 
-    _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element)
+    _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element, page=page)
 
-def _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element):
-    """배지 SVG를 PNG로 렌더링"""
+def _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_element, page=None):
+    """배지 SVG를 PNG로 렌더링 (Playwright 우선, svglib 폴백)"""
     try:
         ensure_dirs()
         png_path = OUTPUT_DIR / f"{filename}.png"
         src_png_path = SRC_DIR / f"{filename}.png"
 
-        drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
-        renderPM.drawToFile(drawing, str(png_path), fmt="PNG", bg=None)
-
-        # Logo-only SVG
+        # Logo-only SVG (full badge와 공유)
         src_svg = f'''
         <svg xmlns="http://www.w3.org/2000/svg"
     width="{total_width}"
@@ -362,6 +404,19 @@ def _render_badge_png(filename, final_svg, total_width, bg_rect, logo_svg_elemen
         {bg_rect}
         {logo_svg_element}
     </svg>'''
+
+        if page is not None:
+            # Playwright 렌더링
+            try:
+                _render_svg_to_png_playwright(page, final_svg, png_path, total_width, BADGE_HEIGHT)
+                _render_svg_to_png_playwright(page, src_svg, src_png_path, total_width, BADGE_HEIGHT)
+                return
+            except Exception as e:
+                JLogger().log_warning(f"  [Fallback] Playwright 렌더링 실패 ({filename}), svglib 폴백: {e}")
+
+        # svglib 폴백
+        drawing = svg2rlg(io.BytesIO(final_svg.encode("utf-8")))
+        renderPM.drawToFile(drawing, str(png_path), fmt="PNG", bg=None)
 
         src_drawing = svg2rlg(io.BytesIO(src_svg.encode("utf-8")))
         renderPM.drawToFile(src_drawing, str(src_png_path), fmt="PNG", bg=None)

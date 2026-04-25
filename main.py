@@ -90,7 +90,7 @@ BADGES = [
     ("lightroom", "Lightroom", "#31A8FF", "adobelightroom", None), 
     ("premiere", "Premiere", "#9999FF", "premiere", None),
     ("aftereffects", "AfterEffects", "#9999FF", "aftereffects", None),
-    ("c4d", "Cinema4D", "#004886", "c4d", None),
+    ("c4d", "Cinema4D", "#004886", "c4d", None, True), # Wordmark
     ("rhino", "Rhino", "#800000", "rhino", None),
     ("blender", "Blender", "#E87D0D", "blender", None),
     ("keyshot", "KeyShot", "#000000", "luxion", None),
@@ -165,14 +165,24 @@ def main() -> Tuple[str, bool]:
             badge_lib.download_resource(slug, url)
             
         JLogger().log_info("--- 2. Generating Badges ---")
-        for badge in BADGES:
-            args = {
-                'filename': badge[0], 'label': badge[1],
-                'color_hex': badge[2], 'icon_slug': badge[3],
-                'forced_url': badge[4] if len(badge) > 4 else None,
-                'wordmark': badge[5] if len(badge) > 5 else False,
-            }
-            badge_lib.generate_badge(**args)
+        pw, browser = badge_lib.create_browser()
+        page = None
+        if browser:
+            context = browser.new_context(viewport={"width": 400, "height": badge_lib.BADGE_HEIGHT})
+            page = context.new_page()
+
+        try:
+            for badge in BADGES:
+                args = {
+                    'filename': badge[0], 'label': badge[1],
+                    'color_hex': badge[2], 'icon_slug': badge[3],
+                    'forced_url': badge[4] if len(badge) > 4 else None,
+                    'wordmark': badge[5] if len(badge) > 5 else False,
+                    'page': page,
+                }
+                badge_lib.generate_badge(**args)
+        finally:
+            badge_lib.close_browser(pw, browser)
                 
         # JLogger().log_info("All badges generated successfully.")
         
