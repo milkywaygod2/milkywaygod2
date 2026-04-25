@@ -7,6 +7,7 @@ from pathlib import Path
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
 from jcore.l3_diagnostics.jlogger import JLogger
+from xml.etree import ElementTree as ET
 
 # Configuration
 OUTPUT_DIR = Path("icons")
@@ -67,6 +68,23 @@ def ensure_dirs():
 def get_text_width(text):
     # Rough estimate for text width (verdana 11px)
     return max(len(text) * 7.5 + 10, 20)
+
+def get_svg_bounds(svg_content):
+    """Extract viewBox and calculate centered positioning for SVG content"""
+    try:
+        # Parse SVG to get viewBox
+        root = ET.fromstring(svg_content)
+        viewbox = root.get('viewBox', '0 0 24 24')
+        vb_parts = [float(x) for x in viewbox.split()]
+
+        if len(vb_parts) == 4:
+            vb_x, vb_y, vb_w, vb_h = vb_parts
+            # Return viewBox dimensions for proper centering
+            return viewbox, vb_w, vb_h
+    except:
+        pass
+
+    return "0 0 24 24", 24, 24
 
 def fetch_local_or_url(slug, forced_url=None):
     ensure_dirs()
@@ -131,7 +149,8 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     # Keep original icon colors for white background
                     icon_x = ICON_PADDING
                     icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2  # Vertically center the icon
-                    logo_svg_element = f'<svg x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" {viewbox_attr}>{inner_content}</svg>'
+                    # Use preserveAspectRatio for automatic centering within viewBox
+                    logo_svg_element = f'<svg x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" {viewbox_attr} preserveAspectRatio="xMidYMid meet">{inner_content}</svg>'
                 else:
                     # Fallback to base64 if parsing fails
                     enc = base64.b64encode(logo_content.encode("utf-8")).decode()
@@ -162,7 +181,8 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     path_d = path_match.group(1)
                     viewbox = viewbox_match.group(1) if viewbox_match else "0 0 24 24"
                     icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2  # Vertically center the icon
-                    logo_svg_element = f'<svg x="{ICON_PADDING}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" viewBox="{viewbox}"><path fill="{fill_color}" d="{path_d}"/></svg>'
+                    # Use preserveAspectRatio for automatic centering
+                    logo_svg_element = f'<svg x="{ICON_PADDING}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet"><path fill="{fill_color}" d="{path_d}"/></svg>'
         except:
             pass
 

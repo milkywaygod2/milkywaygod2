@@ -79,21 +79,21 @@ BADGES = [
     ("androidstudio", "AndroidStudio", "#3DDC84", "androidstudio", None),
 
     # Internal / Custom Agentic
-    ("antigravity", "Antigravity", "#4B0082", "rocket", None), # Rocket icon from SimpleIcons
-    ("context7", "Context7", "#008080", "googledocs", None), # Google Docs icon
-    ("sequentialthinking", "SequentialThinking", "#FF4500", "steps", None), # Steps icon
+    ("antigravity", "Antigravity", "#4B0082", "antigravity", None), # Local custom icon
+    ("context7", "Context7", "#008080", "context7", None), # Local custom icon
+    ("sequentialthinking", "SequentialThinking", "#FF4500", "sequentialthinking", None), # Local custom icon
     ("flywright", "Flywright", "#45BA4B", "playwright", None),
 
     # Design / 3D
     ("photoshop", "Photoshop", "#31A8FF", "photoshop", None),
     ("illustrator", "Illustrator", "#FF9A00", "illustrator", None),
-    ("lightroom", "Lightroom", "#31A8FF", "lightroom", None), 
+    ("lightroom", "Lightroom", "#31A8FF", "adobelightroom", None), 
     ("premiere", "Premiere", "#9999FF", "premiere", None),
     ("aftereffects", "AfterEffects", "#9999FF", "aftereffects", None),
     ("c4d", "Cinema4D", "#004886", "c4d", None),
     ("rhino", "Rhino", "#800000", "rhino", None),
     ("blender", "Blender", "#E87D0D", "blender", None),
-    ("keyshot", "KeyShot", "#000000", "luxion", None), # Luxion (KeyShot company)
+    ("keyshot", "KeyShot", "#000000", "luxion", None),
 
     # Other
     ("visualbasic", "VisualBasic", "#5C2D91", "visualbasic", None), 
