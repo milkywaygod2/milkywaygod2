@@ -39,7 +39,7 @@ BADGES = [
     ("boost", "Boost", "#F7931E", "boost", None),
     ("opencv", "OpenCV", "#5C3EE8", "opencv", None),
     ("tesseract", "Tesseract", "#1E90FF", "tesseract", None),
-    ("paddle-ocr", "PaddleOCR", "#0062B0", "paddlepaddle", None),
+    ("paddle-ocr", "PaddleOCR", "#0062B0", "paddle-ocr", None),
     ("mfc", "MFC", "#0078D4", "microsoft", None),
     ("unreal5", "UnrealEngine5", "#0E1128", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
 
@@ -47,7 +47,7 @@ BADGES = [
     ("python", "Python", "#3776AB", "python", None),
     ("flask", "Flask", "#000000", "flask", None),
     ("ollama", "Ollama", "#000000", "ollama", None),
-    ("deepseek-ocr", "DeepSeek", "#1E40AF", "deepseek-ocr", None), 
+    ("deepseek-ocr", "DeepSeek", "#1E40AF", "deepseek-ocr", None, True),
 
     # Java
     ("java", "Java", "#E34F26", "java", None),
