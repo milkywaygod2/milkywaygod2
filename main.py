@@ -93,7 +93,7 @@ BADGES = [
     ("c4d", "Cinema4D", "#004886", "c4d", None, True), # Wordmark
     ("rhino", "Rhino", "#800000", "rhino", None),
     ("blender", "Blender", "#E87D0D", "blender", None),
-    ("keyshot", "KeyShot", "#000000", "luxion", None),
+    ("keyshot", "KeyShot", "#000000", "keyshot", None),
 
     # Other
     ("visualbasic", "VisualBasic", "#5C2D91", "visualbasic", None), 
@@ -151,7 +151,7 @@ SVG_ASSETS = [
     ("lightroom", "https://cdn.simpleicons.org/adobe-lightroom/white"),
     ("c4d", "https://cdn.simpleicons.org/cinema4d/white"),
     ("rhino", "https://cdn.simpleicons.org/rhinoceros/white"),
-    ("keyshot", "https://cdn.simpleicons.org/luxion/white"),
+    ("keyshot", "https://cdn.simpleicons.org/keyshot/white"),
     ("playwright", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg"),
 ]
 
