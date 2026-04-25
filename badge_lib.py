@@ -144,25 +144,31 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
             icon_y = ICON_PADDING
             logo_svg_element = f'<image x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" href="{logo_content}"/>'
     
-    # Fallback to Monochrome Custom Path or Simple Icons
+    # Fallback to Simple Icons (colored) or Custom Path
     if not logo_svg_element:
-        path_d = ""
-        if icon_slug in CUSTOM_PATHS:
+        # Try Simple Icons (colored version first)
+        try:
+            icon_url = f"https://cdn.simpleicons.org/{icon_slug}"
+            r = requests.get(icon_url, timeout=2)
+            if r.status_code == 200:
+                # Extract path and color from SimpleIcons SVG
+                svg_content = r.text
+                fill_match = re.search(r'fill="([^"]+)"', svg_content)
+                path_match = re.search(r'<path[^>]*d="([^"]+)"', svg_content)
+                viewbox_match = re.search(r'viewBox="([^"]+)"', svg_content)
+
+                if path_match:
+                    fill_color = fill_match.group(1) if fill_match else "#24292E"
+                    path_d = path_match.group(1)
+                    viewbox = viewbox_match.group(1) if viewbox_match else "0 0 24 24"
+                    logo_svg_element = f'<svg x="{ICON_PADDING}" y="{ICON_PADDING}" width="{ICON_SIZE}" height="{ICON_SIZE}" viewBox="{viewbox}"><path fill="{fill_color}" d="{path_d}"/></svg>'
+        except:
+            pass
+
+        # Fallback to Custom Path if SimpleIcons failed
+        if not logo_svg_element and icon_slug in CUSTOM_PATHS:
             path_d = CUSTOM_PATHS[icon_slug]
-            logo_svg_element = f'<path fill="#24292E" transform="scale(1.1) translate(6,6)" d="{path_d}"/>' 
-        else:
-            # Try Simple Icons
-            try:
-                icon_url = f"https://cdn.simpleicons.org/{icon_slug}/white"
-                r = requests.get(icon_url)
-                if r.status_code == 200:
-                    start_d = r.text.find('d="')
-                    if start_d != -1:
-                        end_d = r.text.find('"', start_d + 3)
-                        path_d = r.text[start_d+3:end_d]
-                        logo_svg_element = f'<path fill="#24292E" transform="scale(1.1) translate(6,6)" d="{path_d}"/>'
-            except:
-                pass
+            logo_svg_element = f'<path fill="#24292E" transform="scale(1.1) translate(6,6)" d="{path_d}"/>'
                 
         if not logo_svg_element:
              JLogger().log_warning(f"  [Warning] No logo found for {filename}")

@@ -79,9 +79,9 @@ BADGES = [
     ("androidstudio", "AndroidStudio", "#3DDC84", "androidstudio", None),
 
     # Internal / Custom Agentic
-    ("antigravity", "Antigravity", "#4B0082", "antigravity", None), # Indigo
-    ("context7", "Context7", "#008080", "context7", None), # Teal
-    ("sequentialthinking", "SequentialThinking", "#FF4500", "sequentialthinking", None), # OrangeRed
+    ("antigravity", "Antigravity", "#4B0082", "rocket", None), # Rocket icon from SimpleIcons
+    ("context7", "Context7", "#008080", "googledocs", None), # Google Docs icon
+    ("sequentialthinking", "SequentialThinking", "#FF4500", "steps", None), # Steps icon
     ("flywright", "Flywright", "#45BA4B", "playwright", None),
 
     # Design / 3D
@@ -93,7 +93,7 @@ BADGES = [
     ("c4d", "Cinema4D", "#004886", "c4d", None),
     ("rhino", "Rhino", "#800000", "rhino", None),
     ("blender", "Blender", "#E87D0D", "blender", None),
-    ("keyshot", "KeyShot", "#000000", "keyshot", None),
+    ("keyshot", "KeyShot", "#000000", "luxion", None), # Luxion (KeyShot company)
 
     # Other
     ("visualbasic", "VisualBasic", "#5C2D91", "visualbasic", None), 
