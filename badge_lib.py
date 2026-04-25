@@ -79,10 +79,25 @@ def _average_hex_colors(colors):
         return '#000000'
     return f'#{r_sum // count:02x}{g_sum // count:02x}{b_sum // count:02x}'
 
-def flatten_gradients(svg_content):
-    """SVG 내 linearGradient/radialGradient를 평균 플랫 컬러로 변환 (svglib 호환)"""
+def _normalize_hex(color):
+    """#fff → #ffffff, 기타 형식 정규화"""
+    color = color.strip().lstrip('#')
+    if len(color) == 3:
+        color = color[0]*2 + color[1]*2 + color[2]*2
+    return f'#{color.lower()}'
+
+def simplify_svg(svg_content):
+    """svglib 미지원 SVG 기능을 동적으로 감지·제거하여 호환성 확보
+
+    처리 대상:
+    - linearGradient/radialGradient → 플랫 컬러 변환 (투명도 오버레이 감지)
+    - mask → 제거 (svglib 미지원)
+    - filter → 제거 (svglib 미지원)
+    - clipPath 내 복잡한 참조 → 제거
+    - mix-blend-mode, opacity overlay → 정리
+    """
     try:
-        # gradient ID → 평균 색상 매핑
+        # --- 1. gradient → 플랫 컬러 변환 ---
         gradients = {}
         for grad_match in re.finditer(
             r'<(linear|radial)Gradient[^>]*id=["\']([^"\']+)["\'][^>]*>(.*?)</\1Gradient>',
@@ -91,30 +106,51 @@ def flatten_gradients(svg_content):
             grad_id = grad_match.group(2)
             grad_body = grad_match.group(3)
             colors = []
-            # stop-color를 style 속성 또는 직접 속성에서 추출
-            for stop_match in re.finditer(r'<stop[^>]*>', grad_body):
+            has_opacity_variation = False
+            for stop_match in re.finditer(r'<stop[^>]*/?\s*>', grad_body):
                 stop_tag = stop_match.group(0)
                 style_color = re.search(r'stop-color:\s*([^;"]+)', stop_tag)
                 attr_color = re.search(r'stop-color=["\']([^"\']+)["\']', stop_tag)
+                attr_opacity = re.search(r'stop-opacity=["\']([^"\']+)["\']', stop_tag)
+                style_opacity = re.search(r'stop-opacity:\s*([^;"]+)', stop_tag)
                 if style_color:
-                    colors.append(style_color.group(1).strip())
+                    colors.append(_normalize_hex(style_color.group(1)))
                 elif attr_color:
-                    colors.append(attr_color.group(1).strip())
-            if colors:
+                    colors.append(_normalize_hex(attr_color.group(1)))
+                if attr_opacity and float(attr_opacity.group(1)) < 0.5:
+                    has_opacity_variation = True
+                if style_opacity and float(style_opacity.group(1)) < 0.5:
+                    has_opacity_variation = True
+
+            if not colors:
+                continue
+            # 모든 stop 동일색 + opacity 변화 → 투명도 오버레이 → none
+            unique_colors = set(colors)
+            if len(unique_colors) == 1 and has_opacity_variation:
+                gradients[grad_id] = 'none'
+            else:
                 gradients[grad_id] = _average_hex_colors(colors)
 
-        if not gradients:
-            return svg_content
-
-        # url(#id) 참조를 플랫 컬러로 교체
         for grad_id, flat_color in gradients.items():
             svg_content = svg_content.replace(f'url(#{grad_id})', flat_color)
 
-        # gradient 정의 제거
+        # --- 2. mask 제거 ---
+        svg_content = re.sub(r'<mask[^>]*>.*?</mask>', '', svg_content, flags=re.DOTALL)
+        svg_content = re.sub(r'\s*mask="[^"]*"', '', svg_content)
+
+        # --- 3. filter 제거 ---
+        svg_content = re.sub(r'<filter[^>]*>.*?</filter>', '', svg_content, flags=re.DOTALL)
+        svg_content = re.sub(r'\s*filter="[^"]*"', '', svg_content)
+
+        # --- 4. gradient 정의 제거 ---
         svg_content = re.sub(
             r'<(linear|radial)Gradient[^>]*>.*?</\1Gradient>',
             '', svg_content, flags=re.DOTALL
         )
+
+        # --- 5. mix-blend-mode 스타일 제거 ---
+        svg_content = re.sub(r'style="[^"]*mix-blend-mode:[^"]*"', '', svg_content)
+
         return svg_content
     except Exception:
         return svg_content
@@ -181,17 +217,26 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
 
     # --- 워드마크 모드: SVG 로고 전체를 배지로 사용 ---
     if wordmark and logo_content and is_svg:
-        logo_content = flatten_gradients(logo_content)
+        logo_content = simplify_svg(logo_content)
+        # viewBox 또는 width/height에서 종횡비 추출
         viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
+        svg_w_match = re.search(r'<svg[^>]*\bwidth="([0-9.]+)"', logo_content)
+        svg_h_match = re.search(r'<svg[^>]*\bheight="([0-9.]+)"', logo_content)
+
         if viewbox_match:
             vb = [float(x) for x in viewbox_match.group(1).split()]
-            if len(vb) == 4:
-                vb_w, vb_h = vb[2], vb[3]
-                aspect = vb_w / vb_h if vb_h > 0 else 4
-                logo_h = BADGE_HEIGHT - 8  # 상하 4px 패딩
-                logo_w = logo_h * aspect
-                wm_width = int(logo_w + 16)  # 좌우 8px 패딩
-                total_width = max(wm_width, total_width)
+            vb_w, vb_h = (vb[2], vb[3]) if len(vb) == 4 else (300, 80)
+        elif svg_w_match and svg_h_match:
+            vb_w, vb_h = float(svg_w_match.group(1)), float(svg_h_match.group(1))
+        else:
+            vb_w, vb_h = 300, 80
+
+        aspect = vb_w / vb_h if vb_h > 0 else 4
+        logo_h = BADGE_HEIGHT - 8  # 상하 4px 패딩
+        logo_w = logo_h * aspect
+        wm_width = int(logo_w + 16)  # 좌우 8px 패딩
+        total_width = max(wm_width, total_width)
+        viewbox_str = viewbox_match.group(1) if viewbox_match else f'0 0 {vb_w} {vb_h}'
 
         bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#FFFFFF" stroke="#E1E4E8" stroke-width="1"/>'
         start_svg = logo_content.find("<svg")
@@ -199,10 +244,9 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
         end_svg = logo_content.rfind("</svg>")
         if start_svg != -1 and end_opening_tag != -1 and end_svg != -1:
             inner_content = logo_content[end_opening_tag+1:end_svg]
-            viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else ''
             logo_x = (total_width - logo_w) / 2
             logo_y = 4
-            logo_svg_element = f'<svg x="{logo_x}" y="{logo_y}" width="{logo_w}" height="{logo_h}" {viewbox_attr} preserveAspectRatio="xMidYMid meet">{inner_content}</svg>'
+            logo_svg_element = f'<svg x="{logo_x}" y="{logo_y}" width="{logo_w}" height="{logo_h}" viewBox="{viewbox_str}" preserveAspectRatio="xMidYMid meet">{inner_content}</svg>'
 
             final_svg = f'''
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +266,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None, wordm
     if logo_content:
         if is_svg:
             # 그래디언트를 플랫 컬러로 전처리
-            logo_content = flatten_gradients(logo_content)
+            logo_content = simplify_svg(logo_content)
             start_svg = logo_content.find("<svg")
             if start_svg != -1:
                 end_opening_tag = logo_content.find(">", start_svg)
