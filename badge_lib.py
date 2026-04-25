@@ -12,7 +12,8 @@ from jcore.l3_diagnostics.jlogger import JLogger
 OUTPUT_DIR = Path("icons")
 SRC_DIR = Path("icons_src")
 BADGE_HEIGHT = 28
-ICON_HEIGHT = 22
+ICON_SIZE = 20  # Icon size (square)
+ICON_PADDING = 4  # Padding around icon
 FONT_SIZE = 11
 PADDING_X = 8
 ICON_TEXT_GAP = 6
@@ -105,12 +106,12 @@ def fetch_local_or_url(slug, forced_url=None):
 
 def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     JLogger().log_info(f"Generating badge: {filename}...")
-    color_hex = color_hex.lstrip('#')
+    # Use white background with light gray border
     char_width = 8.5 if FONT_SIZE > 10 else 7.5
-    text_width_approx = len(label) * char_width 
+    text_width_approx = len(label) * char_width
     total_width = int(30 + text_width_approx + 10)
-    
-    bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#{color_hex}"/>'
+
+    bg_rect = f'<rect width="{total_width}" height="{BADGE_HEIGHT}" rx="4" fill="#FFFFFF" stroke="#E1E4E8" stroke-width="1"/>'
 
     logo_content, is_svg = fetch_local_or_url(icon_slug, forced_url)
     logo_svg_element = ""
@@ -126,8 +127,11 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     inner_content = logo_content[end_opening_tag+1:end_svg]
                     viewbox_match = re.search(r'viewBox="([^"]+)"', logo_content)
                     viewbox_attr = f'viewBox="{viewbox_match.group(1)}"' if viewbox_match else 'viewBox="0 0 128 128"'
-                    
-                    logo_svg_element = f'<svg x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" {viewbox_attr}>{inner_content}</svg>'
+
+                    # Keep original icon colors for white background
+                    icon_x = ICON_PADDING
+                    icon_y = ICON_PADDING
+                    logo_svg_element = f'<svg x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" {viewbox_attr}>{inner_content}</svg>'
                 else:
                     # Fallback to base64 if parsing fails
                     enc = base64.b64encode(logo_content.encode("utf-8")).decode()
@@ -136,14 +140,16 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                  pass
         else:
             # It's a base64 encoded image string (e.g. PNG)
-            logo_svg_element = f'<image x="7" y="7" width="{ICON_HEIGHT + 4}" height="{ICON_HEIGHT + 4}" href="{logo_content}"/>'
+            icon_x = ICON_PADDING
+            icon_y = ICON_PADDING
+            logo_svg_element = f'<image x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" href="{logo_content}"/>'
     
     # Fallback to Monochrome Custom Path or Simple Icons
     if not logo_svg_element:
         path_d = ""
         if icon_slug in CUSTOM_PATHS:
             path_d = CUSTOM_PATHS[icon_slug]
-            logo_svg_element = f'<path fill="#fff" transform="scale(1.1) translate(6,6)" d="{path_d}"/>' 
+            logo_svg_element = f'<path fill="#24292E" transform="scale(1.1) translate(6,6)" d="{path_d}"/>' 
         else:
             # Try Simple Icons
             try:
@@ -154,7 +160,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     if start_d != -1:
                         end_d = r.text.find('"', start_d + 3)
                         path_d = r.text[start_d+3:end_d]
-                        logo_svg_element = f'<path fill="#fff" transform="scale(1.1) translate(6,6)" d="{path_d}"/>'
+                        logo_svg_element = f'<path fill="#24292E" transform="scale(1.1) translate(6,6)" d="{path_d}"/>'
             except:
                 pass
                 
@@ -171,7 +177,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
     viewBox="0 0 {total_width} {BADGE_HEIGHT}">
         {bg_rect}
         {logo_svg_element}
-        <text x="{total_width - (text_width_approx / 2) - 10}" y="25" text-anchor="middle" font-family="{FONT_FAMILY}" font-size="{FONT_SIZE}" fill="#fff" font-weight="bold">{label}</text>
+        <text x="{total_width - (text_width_approx / 2) - 10}" y="{BADGE_HEIGHT / 2 + FONT_SIZE * 0.35}" text-anchor="middle" font-family="{FONT_FAMILY}" font-size="{FONT_SIZE}" fill="#24292E" font-weight="600">{label}</text>
     </svg>'''
     
     try:

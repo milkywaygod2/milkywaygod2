@@ -31,23 +31,23 @@ import badge_lib
 # Configuration: (filename, Label, HexColor, icon_slug, [Optional] ForcedURL)
 BADGES = [
     # C / C++ Group
-    ("c", "C", "#00599C", "c", None),
+    ("c", "C", "#A8B9CC", "c", None),
     ("cpp11", "C++11", "#00599C", "cpp", None),
     ("cpp14", "C++14", "#00599C", "cpp", None),
     ("cpp17", "C++17", "#00599C", "cpp", None),
     ("cpp20", "C++20", "#00599C", "cpp", None),
-    ("boost", "Boost", "#00599C", "boost", None),
-    ("opencv", "OpenCV", "#00599C", "opencv", None),
-    ("tesseract", "Tesseract", "#00599C", "tesseract", None), 
-    ("paddle-ocr", "PaddleOCR", "#00599C", "paddlepaddle", None), 
-    ("mfc", "MFC", "#00599C", "microsoft", None), 
-    ("unreal5", "UnrealEngine5", "#00599C", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
+    ("boost", "Boost", "#F7931E", "boost", None),
+    ("opencv", "OpenCV", "#5C3EE8", "opencv", None),
+    ("tesseract", "Tesseract", "#1E90FF", "tesseract", None),
+    ("paddle-ocr", "PaddleOCR", "#0062B0", "paddlepaddle", None),
+    ("mfc", "MFC", "#0078D4", "microsoft", None),
+    ("unreal5", "UnrealEngine5", "#0E1128", "unrealengine", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
 
     # Python / Web
-    ("python", "Python", "#00599C", "python", None),
-    ("flask", "Flask", "#00599C", "flask", None),
-    ("ollama", "Ollama", "#00599C", "ollama", None), 
-    ("deepseek-ocr", "DeepSeek", "#00599C", "deepseek-ocr", None), 
+    ("python", "Python", "#3776AB", "python", None),
+    ("flask", "Flask", "#000000", "flask", None),
+    ("ollama", "Ollama", "#000000", "ollama", None),
+    ("deepseek-ocr", "DeepSeek", "#1E40AF", "deepseek-ocr", None), 
 
     # Java
     ("java", "Java", "#E34F26", "java", None),
@@ -56,7 +56,7 @@ BADGES = [
     # Mobile / Front
     ("dart", "Dart", "#0175C2", "dart", None),
     ("flutter", "Flutter", "#02569B", "flutter", None),
-    ("html5", "HTML5", "#00599C", "html5", None),
+    ("html5", "HTML5", "#E34F26", "html5", None),
 
     # DB / NAS
     ("mysql", "MySQL", "#4479A1", "mysql", None),
