@@ -61,7 +61,7 @@ BADGES = [
     # DB / NAS
     ("mysql", "MySQL", "#4479A1", "mysql", None),
     ("postgresql", "PostgreSQL", "#4169E1", "postgresql", None),
-    ("synology", "Synology", "#B3B3B3", "synology", None), # Grey
+    ("synology", "Synology", "#B3B3B3", "synology", None, True), # Wordmark
 
     # Tools
     ("git", "Git", "#F05032", "git", None),
@@ -166,10 +166,13 @@ def main() -> Tuple[str, bool]:
             
         JLogger().log_info("--- 2. Generating Badges ---")
         for badge in BADGES:
-            if len(badge) == 5:
-                badge_lib.generate_badge(badge[0], badge[1], badge[2], badge[3], badge[4])
-            else:
-                badge_lib.generate_badge(badge[0], badge[1], badge[2], badge[3])
+            args = {
+                'filename': badge[0], 'label': badge[1],
+                'color_hex': badge[2], 'icon_slug': badge[3],
+                'forced_url': badge[4] if len(badge) > 4 else None,
+                'wordmark': badge[5] if len(badge) > 5 else False,
+            }
+            badge_lib.generate_badge(**args)
                 
         # JLogger().log_info("All badges generated successfully.")
         
