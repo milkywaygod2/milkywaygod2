@@ -130,7 +130,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
 
                     # Keep original icon colors for white background
                     icon_x = ICON_PADDING
-                    icon_y = ICON_PADDING
+                    icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2  # Vertically center the icon
                     logo_svg_element = f'<svg x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" {viewbox_attr}>{inner_content}</svg>'
                 else:
                     # Fallback to base64 if parsing fails
@@ -141,7 +141,7 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
         else:
             # It's a base64 encoded image string (e.g. PNG)
             icon_x = ICON_PADDING
-            icon_y = ICON_PADDING
+            icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2  # Vertically center the icon
             logo_svg_element = f'<image x="{icon_x}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" href="{logo_content}"/>'
     
     # Fallback to Simple Icons (colored) or Custom Path
@@ -161,7 +161,8 @@ def generate_badge(filename, label, color_hex, icon_slug, forced_url=None):
                     fill_color = fill_match.group(1) if fill_match else "#24292E"
                     path_d = path_match.group(1)
                     viewbox = viewbox_match.group(1) if viewbox_match else "0 0 24 24"
-                    logo_svg_element = f'<svg x="{ICON_PADDING}" y="{ICON_PADDING}" width="{ICON_SIZE}" height="{ICON_SIZE}" viewBox="{viewbox}"><path fill="{fill_color}" d="{path_d}"/></svg>'
+                    icon_y = (BADGE_HEIGHT - ICON_SIZE) / 2  # Vertically center the icon
+                    logo_svg_element = f'<svg x="{ICON_PADDING}" y="{icon_y}" width="{ICON_SIZE}" height="{ICON_SIZE}" viewBox="{viewbox}"><path fill="{fill_color}" d="{path_d}"/></svg>'
         except:
             pass
 
