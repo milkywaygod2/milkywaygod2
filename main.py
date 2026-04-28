@@ -49,7 +49,8 @@ BADGES = [
     ("ollama", "Ollama", "#000000", "ollama", None),
     ("deepseek-ocr", "DeepSeek", "#1E40AF", "deepseek-ocr", None, True),
 
-    # Java
+    # C# / Java
+    ("csharp", "C#", "#512BD4", "csharp", None),
     ("java", "Java", "#E34F26", "java", None),
     ("spring", "Spring", "#6DB33F", "spring", None),
 
@@ -114,6 +115,7 @@ SVG_ASSETS = [
     ("unreal5", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unrealengine/unrealengine-original.svg"),
     ("python", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"),
     ("flask", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"),
+    ("csharp", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"),
     ("java", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"),
     ("spring", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"),
     ("dart", "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"),

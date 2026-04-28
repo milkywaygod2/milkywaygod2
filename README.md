@@ -19,6 +19,7 @@
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/ollama.png?v=6" alt="Ollama"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/deepseek-ocr.png?v=6" alt="DeepSeek OCR"></a>
 <br/>
+<a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/csharp.png?v=6" alt="C#"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/java.png?v=6" alt="Java"></a>
 <a href="https://torch-juice-f1f.notion.site/Develop-15c367faeda880aeae54d411c6c56621" target="_blank"><img src="./icons/spring.png?v=6" alt="Spring"></a>
 <br/>
