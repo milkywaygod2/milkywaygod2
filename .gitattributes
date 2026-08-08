@@ -1,0 +1,339 @@
+############################################
+# 줄바꿈과 파일 종류 기준 (마스터본)
+#
+#   저장소 안(blob)은 LF 로 통일하고, 작업본은 아래 규칙대로 꺼낸다.
+#   이 파일이 core.autocrlf(기계 설정)보다 우선하므로 어느 기계에서 clone 해도 같게
+#   동작한다. autocrlf 는 Git for Windows 설치 마법사가 기본으로 넣는 값이라 기계마다
+#   다를 수 있는데, 여기 적어 두면 그 차이에 휘둘리지 않는다.
+#
+#   기준이 없으면 파일이 어떻게 만들어졌느냐에 따라 줄바꿈이 제각각이 되고, 편집기가
+#   파일을 열 때마다 git 이 변경으로 잡는다.
+#
+#   한 줄에 무늬 하나만 적을 수 있다. 여럿을 늘어놓으면 뒤엣것을 속성 이름으로 읽는다.
+#
+#   지금 쓰지 않는 갈래도 미리 적어 둔다. 나중에 그 파일이 처음 들어오는 날,
+#   기준이 없어 잘못 담기는 것보다 낫다.
+
+############################################
+# 1) 기본 - git 에 맡긴다
+#
+#   text=auto 는 파일 앞머리에 NUL 바이트가 있는지 보고 글월인지 덩이인지 가른다.
+#   글월이면 저장소 안을 LF 로 맞추고, 덩이면 손대지 않는다. 소스 코드·설정·문서는
+#   거의 다 여기서 옳게 걸리므로 확장자를 낱낱이 적을 까닭이 없다.
+#   아래 2)3) 은 이 판단이 틀리거나, 맞더라도 꺼내는 모습까지 정해야 하는 것들이다.
+#
+#   가르는 솜씨는 꽤 좋다. 같은 .asset 이라도 %YAML 로 여는 것은 글월로, UnityFS 로
+#   여는 것은 덩이로 옳게 보았다(실측). 그러니 프로젝트마다 성격이 갈리는 확장자는
+#   여기 맡기는 편이 낫다. 다만 auto 가 정하는 것은 '글월이냐 덩이냐' 까지이고,
+#   글월을 어떤 줄바꿈으로 꺼낼지는 정하지 못한다 - 그것이 2) 와 5) 가 있는 까닭이다.
+
+* text=auto
+
+# 겉보기와 달리 글월인 것 - 확장자만 보면 그림·덩이 같아 오해하기 쉽다
+*.svg       text
+*.pem       text
+*.crt       text
+*.cer       text
+*.md5       text
+*.sha1      text
+*.sha256    text
+
+############################################
+# 2) 줄바꿈을 못 박는 것
+#
+#   여기 적힌 것들은 줄바꿈이 틀리면 '보기 나쁜' 데서 그치지 않고 실제로 동작하지 않는다.
+#   그래서 기계 설정에 맡기지 않고 eol 로 못 박는다.
+
+# 셸 스크립트 - 반드시 LF
+#   첫 줄 #!/bin/bash 뒤에 CR 이 붙으면 셸이 그것까지 실행 파일 이름으로 읽어
+#   "bad interpreter: /bin/bash^M" 로 죽는다. 윈도우에서 작업해도 LF 로 꺼낸다.
+*.sh        text eol=lf
+*.bash      text eol=lf
+*.zsh       text eol=lf
+*.fish      text eol=lf
+
+# Makefile - 반드시 LF
+#   make 는 명령 줄이 탭으로 시작하는지 따지는데, CR 이 끼면 줄 끝이 어긋나
+#   "missing separator" 를 낸다.
+*.mk        text eol=lf
+Makefile    text eol=lf
+makefile    text eol=lf
+GNUmakefile text eol=lf
+
+# 리눅스 안에서 도는 것 - 반드시 LF
+#   윈도우에서 지어도 컨테이너·서버 안에서는 리눅스가 읽는다. CR 이 붙으면
+#   명령 이름이나 값 끝에 딸려 들어가 엉뚱하게 동작한다.
+Dockerfile  text eol=lf
+*.dockerfile text eol=lf
+.dockerignore text eol=lf
+*.service   text eol=lf
+*.socket    text eol=lf
+*.desktop   text eol=lf
+
+# 윈도우 배치·PowerShell - 반드시 CRLF
+#   cmd.exe 는 줄을 CRLF 로 끊는 것을 전제한다. LF 뿐이면 goto 와 여러 줄 블록에서
+#   엉뚱한 자리로 뛰거나 마지막 줄을 흘린다.
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+*.ps1       text eol=crlf
+*.psm1      text eol=crlf
+*.psd1      text eol=crlf
+*.vbs       text eol=crlf
+*.wsf       text eol=crlf
+
+# 레지스트리 파일 - 반드시 CRLF
+#   regedit 이 CRLF 를 전제하고 읽는다. LF 뿐이면 가져오기가 통째로 실패한다.
+*.reg       text eol=crlf
+
+# 자막 - CRLF
+#   SubRip(.srt) 규격이 CRLF 로 적게 되어 있다. LF 로도 읽는 재생기가 많지만
+#   규격을 따르는 편이 안전하다.
+*.srt       text eol=crlf
+
+############################################
+# 3) 손대면 깨지는 것 - 변환하지 않는다
+#
+#   아래는 모두 바이트 하나하나가 뜻을 가지는 파일이다. 그 안에 우연히 0x0A(LF)나
+#   0x0D(CR) 값이 들어 있을 수 있는데, git 이 그것을 줄바꿈으로 알고 바꾸면 내용이
+#   망가진다. text=auto 가 대개 알아서 피하지만, NUL 이 앞머리에 없는 묶음은
+#   글월로 오해할 여지가 있어 여기 못 박는다.
+
+# 그림 - 픽셀 값과 압축 덩이가 그대로 들어 있다
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.bmp       binary
+*.ico       binary
+*.icns      binary
+*.webp      binary
+*.avif      binary
+*.heic      binary
+*.tif       binary
+*.tiff      binary
+
+# 그림 작업 파일·팔레트·텍스처 - 편집기와 엔진 전용 꼴이다
+*.psd       binary
+*.aseprite  binary
+*.xcf       binary
+*.tile      binary
+*.pal       binary
+*.dds       binary
+*.tga       binary
+*.exr       binary
+*.hdr       binary
+
+# 소리 - 파형 표본이 바이트로 늘어서 있다
+*.mp3       binary
+*.wav       binary
+*.aif       binary
+*.aiff      binary
+*.ogg       binary
+*.flac      binary
+*.m4a       binary
+*.pcm       binary
+
+# 미디(MIDI) - 소리가 아니라 연주 지시가 들어 있으나 역시 바이트 꼴이다
+*.mid       binary
+*.midi      binary
+
+# 영상 - 크고, 한 바이트만 어긋나도 재생이 깨진다
+*.mp4       binary
+*.mkv       binary
+*.avi       binary
+*.mov       binary
+*.webm      binary
+*.flv       binary
+
+# 묶음 - 압축된 덩이라 바꾸면 풀리지 않는다
+*.zip       binary
+*.gz        binary
+*.bz2       binary
+*.xz        binary
+*.zst       binary
+*.lz4       binary
+*.7z        binary
+*.rar       binary
+*.tar       binary
+*.cab       binary
+
+# 꾸러미 - 속이 zip 이거나 그에 준하는 덩이다
+*.jar       binary
+*.war       binary
+*.whl       binary
+*.egg       binary
+*.nupkg     binary
+*.gem       binary
+*.apk       binary
+*.aab       binary
+*.ipa       binary
+*.msi       binary
+*.dmg       binary
+*.deb       binary
+*.rpm       binary
+
+# 글꼴 - 자모양 좌표가 바이트로 들어 있다
+*.ttf       binary
+*.otf       binary
+*.woff      binary
+*.woff2     binary
+*.eot       binary
+*.fnt       binary
+
+# 실행 파일과 라이브러리 - 기계어다
+*.exe       binary
+*.dll       binary
+*.so        binary
+*.dylib     binary
+*.lib       binary
+*.a         binary
+
+# 컴파일 중간 산출물 - 다시 만들 수 있지만 저장소에 들어오면 바뀌면 안 된다
+#   .obj 는 여기 적지 않는다. 3D 모형 꼴(글월)과 목적 파일(덩이)이 이름을 나눠 쓰는데,
+#   text=auto 가 앞머리를 보고 옳게 가른다(실측으로 확인했다). 5) 를 보라.
+*.o         binary
+*.res       binary
+*.pyc       binary
+*.pyd       binary
+
+# 디버그 기호·증분 빌드 자취 - 도구가 읽는 전용 꼴이다
+*.pdb       binary
+*.ilk       binary
+*.idb       binary
+*.iobj      binary
+*.ipdb      binary
+*.pch       binary
+*.ipch      binary
+
+# 문서 묶음 - 겉보기와 달리 속이 압축된 덩이다
+*.pdf       binary
+*.doc       binary
+*.docx      binary
+*.xls       binary
+*.xlsx      binary
+*.ppt       binary
+*.pptx      binary
+*.hwp       binary
+*.odt       binary
+*.ods       binary
+*.odp       binary
+
+# 학습 모형·가중치 - 실수 값이 빽빽하게 늘어서 있다 (python·cuda 쪽)
+#   크기도 커서 저장소에 담을 때는 Git LFS 를 함께 생각하는 편이 좋다.
+*.pt        binary
+*.pth       binary
+*.ckpt      binary
+*.safetensors binary
+*.onnx      binary
+*.pb        binary
+*.tflite    binary
+*.h5        binary
+*.hdf5      binary
+*.pkl       binary
+*.joblib    binary
+*.npy       binary
+*.npz       binary
+
+# 표 꼴 데이터 덩이 - 열 단위로 압축되어 있어 글월이 아니다 (DB 쪽)
+*.parquet   binary
+*.feather   binary
+*.arrow     binary
+*.avro      binary
+*.orc       binary
+
+# 데이터 덩이·롬 - 자리마다 뜻이 정해져 있어 한 바이트도 옮기면 안 된다
+#   assembly 쪽 디컴파일 프로젝트가 다루는 것들이 여기 든다.
+*.bin       binary
+*.dat       binary
+*.gba       binary
+*.gbc       binary
+*.nds       binary
+*.sav       binary
+*.iso       binary
+*.img       binary
+
+# 데이터베이스 - 쪽(page) 단위로 짜여 있어 바꾸면 열리지 않는다
+*.db        binary
+*.sqlite    binary
+*.sqlite3   binary
+*.mdb       binary
+
+# 열쇠 꾸러미 - 인증서 자체는 글월이지만 이것들은 덩이다
+#   .pem·.crt 는 위 1) 에 글월로 적어 두었다. 여기는 그 짝이 되는 덩이 꼴이다.
+*.p12       binary
+*.pfx       binary
+*.jks       binary
+*.keystore  binary
+*.der       binary
+
+# 3차원 모형 - 꼭짓점 좌표가 바이트로 들어 있다
+*.fbx       binary
+*.blend     binary
+*.glb       binary
+*.3ds       binary
+*.max       binary
+
+# 언리얼 산출물 - 엔진이 제 꼴로 감싼 덩이다
+*.uasset    binary
+*.umap      binary
+*.upk       binary
+*.uexp      binary
+*.ubulk     binary
+*.pak       binary
+
+############################################
+# 4) diff 와 언어 통계에서 빼는 것
+#
+#   손수 지은 것이 아니거나 도구가 만들어 낸 것은 셈에서 빼 두면, 무엇을 지었는지가
+#   또렷해지고 diff 도 읽기 쉬워진다.
+
+# 딴 데서 가져온 코드
+vendor/**       linguist-vendored
+third_party/**  linguist-vendored
+
+# 잠금 파일 - 도구가 적는다. 사람이 읽을 일이 없고 diff 만 길어진다
+package-lock.json  linguist-generated
+pnpm-lock.yaml     linguist-generated
+yarn.lock          linguist-generated
+Cargo.lock         linguist-generated
+poetry.lock        linguist-generated
+pubspec.lock       linguist-generated
+Gemfile.lock       linguist-generated
+composer.lock      linguist-generated
+
+# 줄여 놓은 것·자취 파일 - 원본이 따로 있다
+*.min.js        linguist-generated
+*.min.css       linguist-generated
+*.map           linguist-generated
+
+############################################
+# 5) 프로젝트에 따라 갈리는 것 - 여기서 정하지 않는다
+#
+#   아래는 확장자만으로 글월인지 덩이인지 정할 수 없다. 프로젝트가 어떻게 설정되어
+#   있느냐에 따라 달라지므로, 마스터본에 박아 두면 다른 프로젝트에서 파일이 깨진다.
+#   해당하는 저장소에서만 골라 풀어 쓴다.
+#
+#   ── 유니티 ─────────────────────────────────────────────────────────
+#   ProjectSettings/EditorSettings.asset 의 m_SerializationMode 를 먼저 본다.
+#     2 = Force Text   → 아래를 푼다 (YAML 글월이라 diff·병합이 된다)
+#     1 = Force Binary → 풀지 말고 binary 로 둔다
+#     0 = Mixed        → 섞여 있으니 Force Text 로 바꾸고 나서 푼다
+#
+#   *.unity     text eol=lf
+#   *.prefab    text eol=lf
+#   *.asset     text eol=lf
+#   *.mat       text eol=lf
+#   *.anim      text eol=lf
+#   *.controller text eol=lf
+#   *.meta      text eol=lf
+#   *.inputactions text eol=lf
+#
+#   ── 3차원 모형을 다루는 프로젝트 ───────────────────────────────────
+#   .obj 는 3D 모형 꼴(글월)과 컴파일 목적 파일(덩이)이 이름을 나눠 쓰고,
+#   .stl 도 ASCII 꼴과 이진 꼴이 따로 있다. 둘 다 위 1) 의 text=auto 가 앞머리를
+#   보고 옳게 가르므로 그냥 두면 된다.
+#
+#   줄바꿈까지 정해야 할 때만 아래를 푼다(모형 파일을 손으로 고치는 경우 등).
+#
+#   *.obj       text
+#   *.mtl       text
