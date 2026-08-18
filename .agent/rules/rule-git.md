@@ -15,7 +15,7 @@ trigger: always_on
     *   `feature/project-init`에서 작업 완료 후, 글로벌 워크플로우(`/git-push-main`)를 통해 안전하게 `main`으로 병합하십시오.
 
 ## 2. Global Skill Usage (글로벌 스킬 사용)
-본 프로젝트는 시스템의 안정성을 위해 `.gemini/antigravity`의 **글로벌 Git 스킬**을 사용합니다.
+본 프로젝트는 시스템의 안정성을 위해 `~/.gemini/config/skills/skill-git`의 **글로벌 Git 스킬**을 사용합니다.
 
 *   **필수 사용 (Mandatory)**:
     *   `skill-git-stage.py`, `skill-git-commit.py`, `skill-git-push.py`
