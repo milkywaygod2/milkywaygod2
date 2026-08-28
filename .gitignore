@@ -10,15 +10,18 @@
 !.gitattributes
 !LICENSE
 !README.md
+!AGENTS.md
+!CLAUDE.md
+!GEMINI.md
 
-# Antigravity (Agent)
-!.agent/
-!.agent/rules/
-!.agent/rules/**/*
-!.agent/workflows/
-!.agent/workflows/**/*
-!.agent/skills/
-!.agent/skills/**/*
+# Gemini project-local agent files
+!.gemini/
+!.gemini/rules/
+!.gemini/rules/**/*
+!.gemini/workflows/
+!.gemini/workflows/**/*
+!.gemini/skills/
+!.gemini/skills/**/*
 
 # Python Standard
 !*.py
