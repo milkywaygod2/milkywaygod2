@@ -14,15 +14,6 @@
 !CLAUDE.md
 !GEMINI.md
 
-# Gemini project-local agent files
-!.gemini/
-!.gemini/rules/
-!.gemini/rules/**/*
-!.gemini/workflows/
-!.gemini/workflows/**/*
-!.gemini/skills/
-!.gemini/skills/**/*
-
 # Python Standard
 !*.py
 !requirements.txt
