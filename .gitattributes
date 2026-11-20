@@ -337,3 +337,6 @@ composer.lock      linguist-generated
 #
 #   *.obj       text
 #   *.mtl       text
+
+# JFW 공통 정책 - Markdown 작업본은 모든 운영체제에서 LF
+*.md        text eol=lf
